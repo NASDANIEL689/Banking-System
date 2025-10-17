@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="bankapp.MainMenuController"
+            prefWidth="1000" prefHeight="700"
+            style="-fx-background-color: linear-gradient(to bottom right, #1a237e, #0d47a1);">
+
+    <children>
+        <!-- Top Navigation Bar -->
+        <HBox alignment="CENTER_RIGHT" spacing="10" prefHeight="60"
+              style="-fx-background-color: rgba(255,255,255,0.1); -fx-padding: 10 20 10 20;"
+              AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <children>
+                <Label fx:id="welcomeLabel" text="Welcome, John Doe" 
+                       style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" />
+                <Button text="Logout" fx:id="logoutButton"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 5; -fx-border-radius: 5;"
+                        onAction="#handleLogout" />
+            </children>
+        </HBox>
+
+        <!-- Main Content Area -->
+        <VBox spacing="20" alignment="CENTER" 
+              AnchorPane.topAnchor="80" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+            <!-- Account Balance Card -->
+            <VBox alignment="CENTER" spacing="10" prefWidth="400" prefHeight="150"
+                  style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 30; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);">
+                <Label text="Account Balance" style="-fx-text-fill: #666; -fx-font-size: 14px;" />
+                <Label fx:id="balanceLabel" text="$0.00" 
+                       style="-fx-text-fill: #0d47a1; -fx-font-size: 36px; -fx-font-weight: bold;" />
+                <Label fx:id="accountNumberLabel" text="Account: ****1234" 
+                       style="-fx-text-fill: #888; -fx-font-size: 12px;" />
+            </VBox>
+
+            <!-- Quick Actions Grid -->
+            <GridPane hgap="20" vgap="20" alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints prefWidth="200" />
+                    <ColumnConstraints prefWidth="200" />
+                    <ColumnConstraints prefWidth="200" />
+                    <ColumnConstraints prefWidth="200" />
+                </columnConstraints>
+
+                <!-- Deposit Button -->
+                <Button fx:id="depositButton" text="Deposit" prefHeight="80"
+                        style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
+                        onAction="#handleDeposit" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+                <!-- Withdraw Button -->
+                <Button fx:id="withdrawButton" text="Withdraw" prefHeight="80"
+                        style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
+                        onAction="#handleWithdraw" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <!-- Transfer Button -->
+                <Button fx:id="transferButton" text="Transfer" prefHeight="80"
+                        style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
+                        onAction="#handleTransfer" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+                <!-- Pay Bills Button -->
+                <Button fx:id="payBillsButton" text="Pay Bills" prefHeight="80"
+                        style="-fx-background-color: #9C27B0; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
+                        onAction="#handlePayBills" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                <!-- View Transactions Button -->
+                <Button fx:id="viewTransactionsButton" text="View Transactions" prefHeight="80"
+                        style="-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
+                        onAction="#handleViewTransactions" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+                <!-- Transaction History Button -->
+                <Button fx:id="transactionHistoryButton" text="Transaction History" prefHeight="80"
+                        style="-fx-background-color: #795548; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
+                        onAction="#handleTransactionHistory" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <!-- Account Settings Button -->
+                <Button fx:id="accountSettingsButton" text="Account Settings" prefHeight="80"
+                        style="-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
+                        onAction="#handleAccountSettings" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+                <!-- Help Button -->
+                <Button fx:id="helpButton" text="Help & Support" prefHeight="80"
+                        style="-fx-background-color: #00BCD4; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
+                        onAction="#handleHelp" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+            </GridPane>
+
+            <!-- Recent Transactions Preview -->
+            <VBox alignment="CENTER" spacing="10" prefWidth="600" prefHeight="200"
+                  style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Recent Transactions" style="-fx-text-fill: #333; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                    <Button text="View All" fx:id="viewAllTransactionsButton"
+                            style="-fx-background-color: transparent; -fx-text-fill: #0d47a1; -fx-underline: true;"
+                            onAction="#handleViewAllTransactions" />
+                </HBox>
+                
+                <TableView fx:id="recentTransactionsTable" prefHeight="120" prefWidth="560">
+                    <columns>
+                        <TableColumn fx:id="dateColumn" text="Date" prefWidth="100" />
+                        <TableColumn fx:id="typeColumn" text="Type" prefWidth="100" />
+                        <TableColumn fx:id="amountColumn" text="Amount" prefWidth="100" />
+                        <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="260" />
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+
+    </children>
+</AnchorPane>

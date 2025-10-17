@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.saintdanielbank.RegisterChoiceController" prefWidth="600.0" prefHeight="400.0" style="-fx-background-color: linear-gradient(to bottom right, #1E3C72, #2A5298);">
+    <children>
+        <VBox alignment="CENTER" spacing="25.0" layoutX="150.0" layoutY="80.0" prefWidth="300.0" prefHeight="250.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20;">
+            <children>
+                <Label text="SAINT DANIEL BANK" textFill="#1E3C72" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+                <Label text="Empowering Your Financial Journey" textFill="#555" style="-fx-font-size: 12px;" />
+
+                <Separator />
+
+                <Button fx:id="personalAccountButton" text="Register Personal Account" prefWidth="220.0" style="-fx-background-color: #1E3C72; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;" />
+                <Button fx:id="businessAccountButton" text="Register Business Account" prefWidth="220.0" style="-fx-background-color: #2A5298; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10;" />
+
+                <Button fx:id="backButton" text="Back" prefWidth="120.0" style="-fx-background-color: transparent; -fx-text-fill: #1E3C72; -fx-font-weight: bold; -fx-underline: true;" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

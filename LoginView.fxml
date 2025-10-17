@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="bankapp.LoginController"
+            prefWidth="600" prefHeight="400"
+            style="-fx-background-color: linear-gradient(to bottom right, #1a237e, #0d47a1);">
+
+    <children>
+
+        <!-- Centered VBox (Main Card) -->
+        <VBox alignment="CENTER" spacing="15" prefWidth="400" prefHeight="350"
+              AnchorPane.topAnchor="25" AnchorPane.bottomAnchor="25"
+              AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"
+              style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 30; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);">
+
+            <!-- Bank Title -->
+            <VBox alignment="CENTER">
+                <Label text="SAINT DANIEL BANK"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0d47a1;" />
+                <Label text="Empowering Your Financial Journey"
+                       style="-fx-font-size: 13px; -fx-text-fill: #444;" />
+            </VBox>
+
+            <!-- Spacer -->
+            <Region prefHeight="10" />
+
+            <!-- Username Field -->
+            <VBox spacing="5" prefWidth="250">
+                <Label text="Username" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                <TextField fx:id="usernameField" promptText="Enter your username"
+                           style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
+            </VBox>
+
+            <!-- Password Field -->
+            <VBox spacing="5" prefWidth="250">
+                <Label text="Password" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                <PasswordField fx:id="passwordField" promptText="Enter your password"
+                               style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
+            </VBox>
+
+            <!-- Login Button -->
+            <Button text="Login" fx:id="loginButton"
+                    style="-fx-background-color: #0d47a1; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 8 30 8 30;"
+                    onAction="#handleLogin" />
+
+            <!-- Register Link -->
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Don't have an account?" style="-fx-text-fill: #444;" />
+                <Hyperlink text="Register Here"
+                           fx:id="registerLink"
+                           onAction="#handleRegister"
+                           style="-fx-text-fill: #0d47a1; -fx-font-weight: bold;" />
+            </HBox>
+
+        </VBox>
+
+    </children>
+</AnchorPane>

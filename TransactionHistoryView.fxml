@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="bankapp.TransactionHistoryController"
+            prefWidth="1200" prefHeight="800"
+            style="-fx-background-color: linear-gradient(to bottom right, #1a237e, #0d47a1);">
+
+    <children>
+        <!-- Top Navigation Bar -->
+        <HBox alignment="CENTER_LEFT" spacing="20" prefHeight="60"
+              style="-fx-background-color: rgba(255,255,255,0.1); -fx-padding: 10 20 10 20;"
+              AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <children>
+                <Button text="← Back to Menu" fx:id="backButton"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 5; -fx-border-radius: 5;"
+                        onAction="#handleBack" />
+                <Label text="Transaction History" 
+                       style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" />
+            </children>
+        </HBox>
+
+        <!-- Main Content Area -->
+        <VBox spacing="20" alignment="CENTER" 
+              AnchorPane.topAnchor="80" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+            <!-- Summary Cards -->
+            <HBox alignment="CENTER" spacing="20" prefWidth="1160">
+                <VBox alignment="CENTER" spacing="5" prefWidth="200" prefHeight="100"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                    <Label text="Total Transactions" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                    <Label fx:id="totalTransactionsLabel" text="0" 
+                           style="-fx-text-fill: #0d47a1; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                </VBox>
+                
+                <VBox alignment="CENTER" spacing="5" prefWidth="200" prefHeight="100"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                    <Label text="Total Deposits" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                    <Label fx:id="totalDepositsLabel" text="$0.00" 
+                           style="-fx-text-fill: #4CAF50; -fx-font-size: 20px; -fx-font-weight: bold;" />
+                </VBox>
+                
+                <VBox alignment="CENTER" spacing="5" prefWidth="200" prefHeight="100"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                    <Label text="Total Withdrawals" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                    <Label fx:id="totalWithdrawalsLabel" text="$0.00" 
+                           style="-fx-text-fill: #FF9800; -fx-font-size: 20px; -fx-font-weight: bold;" />
+                </VBox>
+                
+                <VBox alignment="CENTER" spacing="5" prefWidth="200" prefHeight="100"
+                      style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                    <Label text="Net Balance" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                    <Label fx:id="netBalanceLabel" text="$0.00" 
+                           style="-fx-text-fill: #2196F3; -fx-font-size: 20px; -fx-font-weight: bold;" />
+                </VBox>
+            </HBox>
+
+            <!-- Advanced Filter Controls -->
+            <VBox alignment="CENTER" spacing="15" prefWidth="1160" prefHeight="120"
+                  style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 10; -fx-padding: 20;">
+                
+                <Label text="Advanced Filters" style="-fx-text-fill: #333; -fx-font-size: 16px; -fx-font-weight: bold;" />
+                
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <VBox spacing="5">
+                        <Label text="Transaction Type:" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                        <ComboBox fx:id="typeFilterComboBox" promptText="All Types" prefWidth="150" />
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Amount Range:" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                        <HBox spacing="5">
+                            <TextField fx:id="minAmountField" promptText="Min" prefWidth="80" />
+                            <Label text="to" style="-fx-text-fill: #333;" />
+                            <TextField fx:id="maxAmountField" promptText="Max" prefWidth="80" />
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Date Range:" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                        <HBox spacing="5">
+                            <DatePicker fx:id="startDatePicker" prefWidth="120" />
+                            <Label text="to" style="-fx-text-fill: #333;" />
+                            <DatePicker fx:id="endDatePicker" prefWidth="120" />
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Status:" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                        <ComboBox fx:id="statusFilterComboBox" promptText="All Status" prefWidth="120" />
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Region prefHeight="25" />
+                        <Button text="Apply Filters" fx:id="applyFiltersButton"
+                                style="-fx-background-color: #0d47a1; -fx-text-fill: white; -fx-background-radius: 5;"
+                                onAction="#handleApplyFilters" />
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Transaction History Table -->
+            <VBox alignment="CENTER" spacing="10" prefWidth="1160" prefHeight="400"
+                  style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);">
+                
+                <HBox alignment="CENTER_LEFT" spacing="10" prefWidth="1120">
+                    <Label text="Transaction History" style="-fx-text-fill: #333; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                    <Label fx:id="filteredCountLabel" text="(0 transactions)" 
+                           style="-fx-text-fill: #666; -fx-font-size: 14px;" />
+                </HBox>
+                
+                <TableView fx:id="historyTable" prefHeight="300" prefWidth="1120">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="60" />
+                        <TableColumn fx:id="dateColumn" text="Date & Time" prefWidth="140" />
+                        <TableColumn fx:id="typeColumn" text="Type" prefWidth="100" />
+                        <TableColumn fx:id="amountColumn" text="Amount" prefWidth="120" />
+                        <TableColumn fx:id="balanceColumn" text="Balance" prefWidth="120" />
+                        <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="200" />
+                        <TableColumn fx:id="statusColumn" text="Status" prefWidth="100" />
+                        <TableColumn fx:id="referenceColumn" text="Reference" prefWidth="120" />
+                        <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="100" />
+                    </columns>
+                </TableView>
+                
+                <!-- Pagination Controls -->
+                <HBox alignment="CENTER" spacing="10">
+                    <Button text="← Previous" fx:id="previousPageButton"
+                            style="-fx-background-color: #666; -fx-text-fill: white; -fx-background-radius: 5;"
+                            onAction="#handlePreviousPage" />
+                    <Label fx:id="pageInfoLabel" text="Page 1 of 1" 
+                           style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                    <Button text="Next →" fx:id="nextPageButton"
+                            style="-fx-background-color: #666; -fx-text-fill: white; -fx-background-radius: 5;"
+                            onAction="#handleNextPage" />
+                </HBox>
+            </VBox>
+
+            <!-- Action Buttons -->
+            <HBox alignment="CENTER" spacing="20">
+                <Button text="Export to PDF" fx:id="exportPdfButton"
+                        style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20 8 20;"
+                        onAction="#handleExportPdf" />
+                <Button text="Export to Excel" fx:id="exportExcelButton"
+                        style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20 8 20;"
+                        onAction="#handleExportExcel" />
+                <Button text="Print Statement" fx:id="printButton"
+                        style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20 8 20;"
+                        onAction="#handlePrint" />
+                <Button text="Clear Filters" fx:id="clearFiltersButton"
+                        style="-fx-background-color: #666; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 8 20 8 20;"
+                        onAction="#handleClearFilters" />
+            </HBox>
+
+        </VBox>
+
+    </children>
+</AnchorPane>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="bankapp.TransferController"
+            prefWidth="900" prefHeight="700"
+            style="-fx-background-color: linear-gradient(to bottom right, #1a237e, #0d47a1);">
+
+    <children>
+        <!-- Top Navigation Bar -->
+        <HBox alignment="CENTER_LEFT" spacing="20" prefHeight="60"
+              style="-fx-background-color: rgba(255,255,255,0.1); -fx-padding: 10 20 10 20;"
+              AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <children>
+                <Button text="← Back to Menu" fx:id="backButton"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 1; -fx-background-radius: 5; -fx-border-radius: 5;"
+                        onAction="#handleBack" />
+                <Label text="Transfer Funds" 
+                       style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" />
+            </children>
+        </HBox>
+
+        <!-- Main Content Area -->
+        <VBox spacing="20" alignment="CENTER" 
+              AnchorPane.topAnchor="80" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+            <!-- Account Balance Cards -->
+            <HBox alignment="CENTER" spacing="20" prefWidth="860">
+                <VBox alignment="CENTER" spacing="10" prefWidth="200" prefHeight="120"
+                      style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);">
+                    <Label text="From Account" style="-fx-text-fill: #666; -fx-font-size: 14px;" />
+                    <Label fx:id="fromAccountBalanceLabel" text="$0.00" 
+                           style="-fx-text-fill: #0d47a1; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                    <Label fx:id="fromAccountNumberLabel" text="****1234" 
+                           style="-fx-text-fill: #888; -fx-font-size: 12px;" />
+                </VBox>
+                
+                <VBox alignment="CENTER" spacing="5" prefWidth="100">
+                    <Label text="→" style="-fx-text-fill: white; -fx-font-size: 32px; -fx-font-weight: bold;" />
+                </VBox>
+                
+                <VBox alignment="CENTER" spacing="10" prefWidth="200" prefHeight="120"
+                      style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);">
+                    <Label text="To Account" style="-fx-text-fill: #666; -fx-font-size: 14px;" />
+                    <Label fx:id="toAccountBalanceLabel" text="$0.00" 
+                           style="-fx-text-fill: #4CAF50; -fx-font-size: 24px; -fx-font-weight: bold;" />
+                    <Label fx:id="toAccountNumberLabel" text="****5678" 
+                           style="-fx-text-fill: #888; -fx-font-size: 12px;" />
+                </VBox>
+            </HBox>
+
+            <!-- Transfer Form -->
+            <VBox alignment="CENTER" spacing="20" prefWidth="600" prefHeight="400"
+                  style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 30; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);">
+
+                <Label text="Transfer Details" style="-fx-text-fill: #333; -fx-font-size: 18px; -fx-font-weight: bold;" />
+
+                <!-- From Account Selection -->
+                <VBox spacing="10" prefWidth="540">
+                    <Label text="From Account *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                    <ComboBox fx:id="fromAccountComboBox" promptText="Select source account"
+                              style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
+                </VBox>
+
+                <!-- To Account Selection -->
+                <VBox spacing="10" prefWidth="540">
+                    <Label text="To Account *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="toAccountComboBox" promptText="Select destination account" prefWidth="300"
+                                  style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
+                        <Button text="Add External Account" fx:id="addExternalAccountButton"
+                                style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5;"
+                                onAction="#handleAddExternalAccount" />
+                    </HBox>
+                </VBox>
+
+                <!-- Amount Input -->
+                <VBox spacing="10" prefWidth="540">
+                    <Label text="Transfer Amount *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="$" style="-fx-text-fill: #333; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                        <TextField fx:id="amountField" promptText="0.00" prefWidth="200"
+                                   style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1; -fx-font-size: 16px;" />
+                    </HBox>
+                    <Label fx:id="insufficientFundsLabel" text="" 
+                           style="-fx-text-fill: #F44336; -fx-font-size: 12px;" visible="false" />
+                </VBox>
+
+                <!-- Quick Amount Buttons -->
+                <VBox spacing="10" prefWidth="540">
+                    <Label text="Quick Amount" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="$50" fx:id="quick50Button" prefWidth="80"
+                                style="-fx-background-color: #E8F5E8; -fx-text-fill: #4CAF50; -fx-background-radius: 5;"
+                                onAction="#handleQuickAmount" />
+                        <Button text="$100" fx:id="quick100Button" prefWidth="80"
+                                style="-fx-background-color: #E8F5E8; -fx-text-fill: #4CAF50; -fx-background-radius: 5;"
+                                onAction="#handleQuickAmount" />
+                        <Button text="$200" fx:id="quick200Button" prefWidth="80"
+                                style="-fx-background-color: #E8F5E8; -fx-text-fill: #4CAF50; -fx-background-radius: 5;"
+                                onAction="#handleQuickAmount" />
+                        <Button text="$500" fx:id="quick500Button" prefWidth="80"
+                                style="-fx-background-color: #E8F5E8; -fx-text-fill: #4CAF50; -fx-background-radius: 5;"
+                                onAction="#handleQuickAmount" />
+                    </HBox>
+                </VBox>
+
+                <!-- Description -->
+                <VBox spacing="10" prefWidth="540">
+                    <Label text="Description (Optional)" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                    <TextField fx:id="descriptionField" promptText="Enter description for this transfer"
+                               style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
+                </VBox>
+
+                <!-- Transfer Button -->
+                <Button text="Process Transfer" fx:id="transferButton"
+                        style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 12 40 12 40; -fx-font-size: 16px;"
+                        onAction="#handleTransfer" />
+
+            </VBox>
+
+            <!-- Recent Transfers -->
+            <VBox alignment="CENTER" spacing="10" prefWidth="600" prefHeight="150"
+                  style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 10, 0, 0, 5);">
+                
+                <Label text="Recent Transfers" style="-fx-text-fill: #333; -fx-font-size: 16px; -fx-font-weight: bold;" />
+                
+                <TableView fx:id="recentTransfersTable" prefHeight="80" prefWidth="560">
+                    <columns>
+                        <TableColumn fx:id="dateColumn" text="Date" prefWidth="100" />
+                        <TableColumn fx:id="fromColumn" text="From" prefWidth="120" />
+                        <TableColumn fx:id="toColumn" text="To" prefWidth="120" />
+                        <TableColumn fx:id="amountColumn" text="Amount" prefWidth="100" />
+                        <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="120" />
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+
+    </children>
+</AnchorPane>
