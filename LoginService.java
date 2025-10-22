@@ -1,5 +1,5 @@
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class LoginService implements ILoginService {
     private Map<String, String> users = new HashMap<>();
