@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.saintdanielbank.LoginController" prefWidth="600.0" prefHeight="400.0" style="-fx-background-color: linear-gradient(to bottom right, #1E3C72, #2A5298);">
+    <children>
+        <VBox alignment="CENTER" spacing="15.0" layoutX="150.0" layoutY="60.0" prefWidth="300.0" prefHeight="300.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20;">
+            <children>
+                <Label text="SAINT DANIEL BANK" textFill="#1E3C72" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+                <Label text="Empowering Your Financial Journey" textFill="#555" style="-fx-font-size: 12px;" />
+
+                <Separator />
+
+                <Label text="Username" style="-fx-font-size: 14px;" />
+                <TextField fx:id="usernameField" promptText="Enter username" />
+
+                <Label text="Password" style="-fx-font-size: 14px;" />
+                <PasswordField fx:id="passwordField" promptText="Enter password" />
+
+                <Button fx:id="loginButton" text="Login" prefWidth="200.0" style="-fx-background-color: #1E3C72; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
+
+                <HBox alignment="CENTER" spacing="5.0">
+                    <Label text="Don’t have an account?" textFill="#555" />
+                    <Hyperlink fx:id="registerLink" text="Register" style="-fx-text-fill: #1E3C72; -fx-font-weight: bold;" />
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

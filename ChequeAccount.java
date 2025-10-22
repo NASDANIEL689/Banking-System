@@ -3,7 +3,16 @@ public class ChequeAccount extends Account {
 
     public ChequeAccount(String accountNumber, Customer customer, String employerName) {
         super(accountNumber, customer);
-        this.employerName = employerName;
+        // Enforce that only employed PersonalCustomer can open ChequeAccount
+        if (!(customer instanceof PersonalCustomer)) {
+            throw new IllegalArgumentException("ChequeAccount can only be opened by a personal customer who is employed.");
+        }
+        PersonalCustomer pc = (PersonalCustomer) customer;
+        if (!pc.isEmployed()) {
+            throw new IllegalArgumentException("Personal customer must be employed to open a ChequeAccount.");
+        }
+        // Prefer employerName from customer if available
+        this.employerName = (pc.getEmployerName() != null && !pc.getEmployerName().isEmpty()) ? pc.getEmployerName() : employerName;
     }
 
     @Override
