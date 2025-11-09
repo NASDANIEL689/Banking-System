@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.saintdanielbank.DashboardController" prefWidth="800" prefHeight="600">
+    <top>
+        <ToolBar>
+            <Label text="Saint Daniel Bank - Dashboard" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button text="Logout" onAction="#onLogout" />
+        </ToolBar>
+    </top>
+    <left>
+        <VBox spacing="10" padding="10">
+            <Button text="New Customer" onAction="#onNewCustomer" />
+            <Button text="Create Account" onAction="#onCreateAccount" />
+            <Button text="Refresh Lists" onAction="#onRefresh" />
+        </VBox>
+    </left>
+    <center>
+        <SplitPane orientation="VERTICAL">
+            <items>
+                <VBox spacing="5" padding="10">
+                    <Label text="Customers" />
+                    <ListView fx:id="customerListView" prefHeight="200" />
+                </VBox>
+                <VBox spacing="5" padding="10">
+                    <Label text="Accounts" />
+                    <ListView fx:id="accountListView" prefHeight="200" />
+                </VBox>
+            </items>
+        </SplitPane>
+    </center>
+</BorderPane>

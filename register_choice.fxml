@@ -21,11 +21,11 @@
                 <Label text="Password" style="-fx-font-size: 14px;" />
                 <PasswordField fx:id="passwordField" promptText="Enter password" />
 
-                <Button fx:id="loginButton" text="Login" prefWidth="200.0" style="-fx-background-color: #1E3C72; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
+                <Button fx:id="loginButton" text="Login" onAction="#onLogin" prefWidth="200.0" style="-fx-background-color: #1E3C72; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;" />
 
                 <HBox alignment="CENTER" spacing="5.0">
                     <Label text="Don’t have an account?" textFill="#555" />
-                    <Hyperlink fx:id="registerLink" text="Register" style="-fx-text-fill: #1E3C72; -fx-font-weight: bold;" />
+                    <Hyperlink fx:id="registerLink" text="Register" onAction="#onRegister" style="-fx-text-fill: #1E3C72; -fx-font-weight: bold;" />
                 </HBox>
             </children>
         </VBox>

@@ -15,4 +15,9 @@ public class LoginService implements ILoginService {
     public void logout(String username) {
         // Implement logout logic if needed
     }
+
+    // Register a user for demo/testing purposes
+    public void registerUser(String username, String password) {
+        users.put(username, password);
+    }
 }
