@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.saintdanielbank.AccountDetailController" spacing="8" padding="10">
+    <Label text="Account Detail" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+    <GridPane hgap="8" vgap="8">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="30" />
+            <ColumnConstraints percentWidth="70" />
+        </columnConstraints>
+        <children>
+            <Label text="Account Number:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <Label fx:id="accountNumberLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Owner:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <Label fx:id="ownerLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Balance:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <Label fx:id="balanceLabel" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="Amount:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <TextField fx:id="amountField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+        </children>
+    </GridPane>
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Deposit" onAction="#onDeposit" />
+        <Button text="Withdraw" onAction="#onWithdraw" />
+    </HBox>
+</VBox>

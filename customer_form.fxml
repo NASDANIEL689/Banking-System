@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.saintdanielbank.CustomerFormController" spacing="8" padding="10">
+    <Label text="Customer Form" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+    <GridPane hgap="8" vgap="8">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="30" />
+            <ColumnConstraints percentWidth="70" />
+        </columnConstraints>
+        <children>
+            <Label text="Customer ID:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <TextField fx:id="customerIdField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <Label text="Full Name:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <TextField fx:id="fullNameField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Address:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <TextArea fx:id="addressField" prefRowCount="3" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="Phone:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <TextField fx:id="phoneField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+            <Label text="Email:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <TextField fx:id="emailField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+            <Label text="Type:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+            <ChoiceBox fx:id="typeChoice" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+            <Label text="Personal ID:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+            <TextField fx:id="personalIdField" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+            <Label text="Employed:" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+            <CheckBox fx:id="employedCheckBox" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+            <Label text="Employer:" GridPane.rowIndex="8" GridPane.columnIndex="0" />
+            <TextField fx:id="employerField" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+        </children>
+    </GridPane>
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Save" onAction="#onSave" />
+        <Button text="Cancel" onAction="#onCancel" />
+    </HBox>
+</VBox>
