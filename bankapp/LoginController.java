@@ -3,9 +3,10 @@ package bankapp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,6 +18,12 @@ public class LoginController implements Initializable {
     
     @FXML
     private PasswordField passwordField;
+    
+    @FXML
+    private Button loginButton;
+    
+    @FXML
+    private Hyperlink registerLink;
     
     private LoginService loginService = new LoginService();
 
@@ -46,7 +53,7 @@ public class LoginController implements Initializable {
         
         if (success) {
             showAlert("Success", "Login successful!");
-            // TODO: Navigate to main menu
+            NavigationHelper.navigateTo(NavigationHelper.getStage(loginButton), "MainMenuView.fxml");
         } else {
             showAlert("Error", "Invalid username or password");
         }
@@ -55,8 +62,7 @@ public class LoginController implements Initializable {
     // Handle register link click
     @FXML
     private void handleRegister() {
-        showAlert("Info", "Registration feature coming soon!");
-        // TODO: Navigate to registration view
+        NavigationHelper.navigateTo(NavigationHelper.getStage(registerLink), "SignUpView.fxml");
     }
     
     // Helper method to show alerts
