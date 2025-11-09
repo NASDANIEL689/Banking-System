@@ -1,9 +1,9 @@
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class DatabaseManager {
     private static final String JDBC_URL = "jdbc:h2:mem:bank;DB_CLOSE_DELAY=-1";
