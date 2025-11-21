@@ -13,7 +13,7 @@ public class BankService {
         loginService.registerUser(username, password);
     }
 
-    public void createPersonalCustomer(PersonalCustomer pc) throws SQLException {
+    public void createIndividualCustomer(IndividualCustomer pc) throws SQLException {
         customerDAO.create(pc);
     }
 

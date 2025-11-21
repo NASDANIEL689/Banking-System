@@ -17,20 +17,20 @@ public class CustomerDAO {
         String sql = "INSERT INTO customers(customer_id, type, full_name, address, phone, email, personal_id, business_registration, employed, employer_name) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = DatabaseManager.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, c.getCustomerId());
-            ps.setString(2, c instanceof PersonalCustomer ? "PERSONAL" : "BUSINESS");
+            ps.setString(2, c instanceof IndividualCustomer ? "PERSONAL" : "BUSINESS");
             ps.setString(3, c.getFullName());
             ps.setString(4, c.getAddress());
             ps.setString(5, c.getPhoneNumber());
             ps.setString(6, c.getEmail());
             // optional subtype fields
-            if (c instanceof PersonalCustomer) {
-                PersonalCustomer p = (PersonalCustomer) c;
+            if (c instanceof IndividualCustomer) {
+                IndividualCustomer p = (IndividualCustomer) c;
                 ps.setString(7, p.getPersonalIdNumber());
                 ps.setNull(8, Types.VARCHAR);
                 ps.setBoolean(9, p.isEmployed());
                 ps.setString(10, p.getEmployerName());
-            } else if (c instanceof BusinessCustomer) {
-                BusinessCustomer b = (BusinessCustomer) c;
+            } else if (c instanceof CompanyCustomer) {
+                CompanyCustomer b = (CompanyCustomer) c;
                 ps.setNull(7, Types.VARCHAR);
                 ps.setString(8, b.getBusinessRegistrationNumber());
                 ps.setBoolean(9, false);
@@ -53,7 +53,7 @@ public class CustomerDAO {
                 if (rs.next()) {
                     String type = rs.getString("type");
                     if ("PERSONAL".equalsIgnoreCase(type)) {
-                        PersonalCustomer p = new PersonalCustomer(
+                        IndividualCustomer p = new IndividualCustomer(
                                 rs.getString("customer_id"),
                                 rs.getString("full_name"),
                                 rs.getString("address"),
@@ -65,7 +65,7 @@ public class CustomerDAO {
                         if (employed) p.setEmployment(rs.getString("employer_name"));
                         return p;
                     } else {
-                        BusinessCustomer b = new BusinessCustomer(
+                        CompanyCustomer b = new CompanyCustomer(
                                 rs.getString("customer_id"),
                                 rs.getString("full_name"),
                                 rs.getString("address"),
@@ -97,14 +97,14 @@ public class CustomerDAO {
             ps.setString(2, c.getAddress());
             ps.setString(3, c.getPhoneNumber());
             ps.setString(4, c.getEmail());
-            if (c instanceof PersonalCustomer) {
-                PersonalCustomer p = (PersonalCustomer) c;
+            if (c instanceof IndividualCustomer) {
+                IndividualCustomer p = (IndividualCustomer) c;
                 ps.setString(5, p.getPersonalIdNumber());
                 ps.setNull(6, Types.VARCHAR);
                 ps.setBoolean(7, p.isEmployed());
                 ps.setString(8, p.getEmployerName());
-            } else if (c instanceof BusinessCustomer) {
-                BusinessCustomer b = (BusinessCustomer) c;
+            } else if (c instanceof CompanyCustomer) {
+                CompanyCustomer b = (CompanyCustomer) c;
                 ps.setNull(5, Types.VARCHAR);
                 ps.setString(6, b.getBusinessRegistrationNumber());
                 ps.setBoolean(7, false);

@@ -11,9 +11,9 @@ public class IntegrationTest {
         if (!ok) throw new RuntimeException("Login failed");
 
         // Create customer and persist
-        PersonalCustomer p = new PersonalCustomer("INT-C1","Test User","Addr","000","t@example.com","PID-INT-1");
+        IndividualCustomer p = new IndividualCustomer("INT-C1","Test User","Addr","000","t@example.com","PID-INT-1");
         p.setEmployment("ACME");
-        bank.createPersonalCustomer(p);
+        bank.createIndividualCustomer(p);
         System.out.println("Created customer: " + p.getCustomerId());
 
         // Open savings account

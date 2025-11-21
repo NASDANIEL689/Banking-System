@@ -1,4 +1,4 @@
-public class InvestmentAccount extends Account {
+public class InvestmentAccount extends Account implements Withdrawable {
     private static final double INTEREST_RATE = 0.05; // 5%
 
     public InvestmentAccount(String accountNumber, Customer customer, double initialDeposit) {

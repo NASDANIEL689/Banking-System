@@ -39,9 +39,9 @@ public class CustomerFormController {
         try {
             String id = customerIdField.getText();
             String name = fullNameField.getText();
-            PersonalCustomer p = new PersonalCustomer(id, name, addressField.getText(), phoneField.getText(), emailField.getText(), personalIdField.getText());
+            IndividualCustomer p = new IndividualCustomer(id, name, addressField.getText(), phoneField.getText(), emailField.getText(), personalIdField.getText());
             if (employedCheckBox.isSelected()) p.setEmployment(employerField.getText());
-            bankService.createPersonalCustomer(p);
+            bankService.createIndividualCustomer(p);
             // go back to dashboard
             Stage s = (Stage) customerIdField.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));

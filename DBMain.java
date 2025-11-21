@@ -9,7 +9,7 @@ public class DBMain {
         TransactionDAO tdao = new TransactionDAO();
 
         // create a personal customer
-        PersonalCustomer p = new PersonalCustomer("DB-C1", "DB Alice", "1 DB St", "800-1000", "dbalice@example.com", "PID-DB-1");
+        IndividualCustomer p = new IndividualCustomer("DB-C1", "DB Alice", "1 DB St", "800-1000", "dbalice@example.com", "PID-DB-1");
         p.setEmployment("DBCorp");
         cdao.create(p);
         System.out.println("Created customer: " + p.getCustomerId());

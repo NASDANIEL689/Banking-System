@@ -1,5 +1,7 @@
 package com.saintdanielbank;
 
+package com.saintdanielbank;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ChoiceBox;
@@ -31,13 +33,15 @@ public class AccountCreateController {
             String type = accountTypeChoice.getValue();
             double initial = Double.parseDouble(initialDepositField.getText());
             if ("Savings".equals(type)) {
-                SavingsAccount s = new SavingsAccount(accNo, (PersonalCustomer)c);
+                SavingsAccount s = new SavingsAccount(accNo, c);
                 bankService.openSavingsAccount(s);
             } else if ("Investment".equals(type)) {
                 InvestmentAccount ia = new InvestmentAccount(accNo, c, initial);
                 bankService.openSavingsAccount(ia); // reuse openSavingsAccount for persistence path
             } else if ("Cheque".equals(type)) {
-                ChequeAccount ca = new ChequeAccount(accNo, c, ((PersonalCustomer)c).getEmployerName());
+                String emp = null;
+                if (c instanceof IndividualCustomer) emp = ((IndividualCustomer)c).getEmployerName();
+                ChequeAccount ca = new ChequeAccount(accNo, c, emp);
                 bankService.openSavingsAccount(ca);
             }
             // navigate back to dashboard

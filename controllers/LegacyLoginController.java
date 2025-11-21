@@ -1,9 +1,8 @@
-public class LoginController {
+public class LegacyLoginController {
     private LoginService loginService = new LoginService();
 
-    public LoginController() {
-        // add a default user for demo
-        // using reflection to access private map isn't ideal; so use the users map directly by adding a helper in LoginService would be better
+    public LegacyLoginController() {
+        // legacy simple login helper retained for console controllers
     }
 
     public boolean login(String username, String password) {

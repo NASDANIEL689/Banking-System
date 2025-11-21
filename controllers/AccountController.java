@@ -21,14 +21,17 @@ public class AccountController {
     }
 
     public Account createCheque(String accountNumber, Customer customer) {
-        // attempt to use employer info from PersonalCustomer
+        // attempt to use employer info from IndividualCustomer or CompanyCustomer
         String employer = null;
-        if (customer instanceof PersonalCustomer) {
-            PersonalCustomer pc = (PersonalCustomer) customer;
-            if (!pc.isEmployed()) throw new IllegalArgumentException("Personal customer must be employed to open a ChequeAccount");
+        if (customer instanceof IndividualCustomer) {
+            IndividualCustomer pc = (IndividualCustomer) customer;
+            if (!pc.isEmployed()) throw new IllegalArgumentException("Individual customer must be employed to open a ChequeAccount");
             employer = pc.getEmployerName();
+        } else if (customer instanceof CompanyCustomer) {
+            // company can open cheque accounts
+            employer = ((CompanyCustomer) customer).getCompanyName();
         } else {
-            throw new IllegalArgumentException("ChequeAccount can only be opened for personal customers");
+            throw new IllegalArgumentException("ChequeAccount can only be opened for individual or company customers");
         }
         ChequeAccount a = new ChequeAccount(accountNumber, customer, employer);
         customer.addAccount(a);

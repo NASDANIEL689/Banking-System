@@ -6,7 +6,7 @@ public class Main {
         AccountController accCtrl = new AccountController();
 
         // Create a personal customer and set employment
-        PersonalCustomer p = new PersonalCustomer("C001", "Alice Brown", "12 Main St", "777-1111", "alice@example.com", "PID123");
+        IndividualCustomer p = new IndividualCustomer("C001", "Alice Brown", "12 Main St", "777-1111", "alice@example.com", "PID123");
         p.setEmployment("ABC Corp");
         custCtrl.addCustomer(p);
 
