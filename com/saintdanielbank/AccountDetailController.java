@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
+import bank.BankService;
+import bankapp.Account;
 
 public class AccountDetailController {
     @FXML public Label accountNumberLabel;
@@ -36,9 +38,12 @@ public class AccountDetailController {
     public void onWithdraw() {
         try {
             double amt = Double.parseDouble(amountField.getText());
-            account.withdraw(amt);
-            bankService.openSavingsAccount(account); // persist new balance via update
+            // Use BankService to persist to database
+            bankService.withdraw(account, amt);
             balanceLabel.setText(String.valueOf(account.getBalance()));
-        } catch (Exception e) { new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait(); }
+            amountField.clear();
+        } catch (Exception e) { 
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait(); 
+        }
     }
 }

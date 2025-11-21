@@ -3,7 +3,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import bank.BankService;
+import bank.DatabaseManager;
 import com.saintdanielbank.LoginController;
 
 public class FXLauncher extends Application {

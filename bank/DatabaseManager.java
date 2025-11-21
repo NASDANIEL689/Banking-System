@@ -1,3 +1,5 @@
+package bank;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -6,7 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseManager {
-    private static final String JDBC_URL = "jdbc:h2:mem:bank;DB_CLOSE_DELAY=-1";
+    // Use file-based database instead of in-memory
+    private static final String JDBC_URL = "jdbc:h2:file:data/bankdb;AUTO_SERVER=TRUE";
     private static final String JDBC_USER = "sa";
     private static final String JDBC_PASS = "";
 

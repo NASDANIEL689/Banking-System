@@ -10,6 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import bankapp.PersonalCustomer;
 
 public class CustomerFormController {
     @FXML public TextField customerIdField;

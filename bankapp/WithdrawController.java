@@ -56,6 +56,7 @@ public class WithdrawController implements Initializable {
     
     // Current account
     private Account currentAccount;
+    private bank.BankService bankService = bank.BankService.getInstance();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -126,19 +127,23 @@ public class WithdrawController implements Initializable {
                     method = "Bank Transfer";
                 }
                 
-                // Process withdrawal
-                currentAccount.withdraw(amount);
-                showAlert("Success", "Withdrawal of $" + String.format("%.2f", amount) + " processed successfully!");
-                
-                // Clear fields
-                amountField.clear();
-                descriptionField.clear();
-                insufficientFundsLabel.setVisible(false);
-                
-                // Update balance
-                updateAccountInfo();
+                // Process withdrawal using BankService to persist to database
+                try {
+                    bankService.withdraw(currentAccount, amount);
+                    showAlert("Success", "Withdrawal of $" + String.format("%.2f", amount) + " processed successfully!");
+                    
+                    // Clear fields
+                    amountField.clear();
+                    descriptionField.clear();
+                    insufficientFundsLabel.setVisible(false);
+                    
+                    // Update balance
+                    updateAccountInfo();
+                } catch (Exception e) {
+                    showAlert("Error", "Failed to process withdrawal: " + e.getMessage());
+                }
             } else {
-                showAlert("Info", "Withdrawal would be processed. (Demo mode - no account connected)");
+                showAlert("Error", "No account selected. Please select an account first.");
             }
             
         } catch (NumberFormatException e) {

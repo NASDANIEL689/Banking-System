@@ -1,3 +1,5 @@
+package bank.dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -5,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import bank.DatabaseManager;
+import bankapp.Account;
+import bankapp.Customer;
+import bankapp.SavingsAccount;
+import bankapp.InvestmentAccount;
+import bankapp.ChequeAccount;
 
 public class AccountDAO {
     public void create(Account a) throws SQLException {
@@ -37,6 +45,12 @@ public class AccountDAO {
                     if (acct != null) {
                         // set balance from DB
                         acct.balance = rs.getDouble("balance");
+                        // Load transactions from database
+                        TransactionDAO tdao = new TransactionDAO();
+                        java.util.List<Transaction> transactions = tdao.getTransactionsByAccount(accNo);
+                        for (Transaction t : transactions) {
+                            acct.addTransaction(t);
+                        }
                     }
                     return acct;
                 }

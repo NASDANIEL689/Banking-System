@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
 
 // Controller for the main menu view
 public class MainMenuController implements Initializable {
@@ -68,11 +69,35 @@ public class MainMenuController implements Initializable {
     
     // Current account (would be set from login)
     private Account currentAccount;
+    private bank.BankService bankService = bank.BankService.getInstance();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialize the view
         updateAccountInfo();
+        loadRecentTransactions();
+    }
+    
+    // Load recent transactions from database
+    private void loadRecentTransactions() {
+        if (currentAccount != null && recentTransactionsTable != null) {
+            try {
+                List<Transaction> transactions = bankService.getTransactionsByAccount(currentAccount.getAccountNumber());
+                // Limit to recent 5 transactions
+                recentTransactionsTable.getItems().clear();
+                int count = 0;
+                for (Transaction t : transactions) {
+                    if (count < 5) {
+                        recentTransactionsTable.getItems().add(t);
+                        count++;
+                    } else {
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error loading transactions: " + e.getMessage());
+            }
+        }
     }
     
     // Update account information display

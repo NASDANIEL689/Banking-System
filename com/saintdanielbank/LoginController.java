@@ -1,10 +1,8 @@
 package com.saintdanielbank;
 
 import java.lang.reflect.Method;
-
 import java.util.Objects;
-
-import BankService;
+import bank.BankService;
 
 public class LoginController {
     // These will be injected by FXMLLoader (as java objects) without importing JavaFX types to keep compilation in headless env

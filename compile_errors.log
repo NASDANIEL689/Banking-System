@@ -1,0 +1,470 @@
+./BankApp.java:10: error: duplicate class: bankapp.BankApp
+public class BankApp extends Application {
+       ^
+./ILoginService.java:3: error: duplicate class: bankapp.ILoginService
+public interface ILoginService {
+       ^
+./controllers/LoginController.java:13: error: duplicate class: bankapp.LoginController
+public class LoginController implements Initializable {
+       ^
+./LoginService.java:6: error: duplicate class: bankapp.LoginService
+public class LoginService implements ILoginService {
+       ^
+./Customer.java:6: error: duplicate class: bankapp.Customer
+public class Customer {
+       ^
+./BusinessCustomer.java:1: error: cannot access Customer
+public class BusinessCustomer extends Customer {
+                                      ^
+  bad source file: ./Customer.java
+    file does not contain class Customer
+    Please remove or make sure it appears in the correct subdirectory of the sourcepath.
+./bankapp/MainMenuController.java:72: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+            ^
+  symbol:   class BankService
+  location: class MainMenuController
+./bankapp/TransactionHistoryController.java:86: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+            ^
+  symbol:   class BankService
+  location: class TransactionHistoryController
+./bankapp/WithdrawController.java:59: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+            ^
+  symbol:   class BankService
+  location: class WithdrawController
+./bankapp/TransferController.java:65: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+            ^
+  symbol:   class BankService
+  location: class TransferController
+./bankapp/DepositController.java:72: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+            ^
+  symbol:   class BankService
+  location: class DepositController
+./bankapp/TransactionsController.java:68: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+            ^
+  symbol:   class BankService
+  location: class TransactionsController
+./Account.java:6: error: duplicate class: bankapp.Account
+public abstract class Account implements IAccount, ITransaction {
+                ^
+./BusinessAccount.java:1: error: cannot access Account
+public class BusinessAccount extends Account {
+                                     ^
+  bad source file: ./Account.java
+    file does not contain class Account
+    Please remove or make sure it appears in the correct subdirectory of the sourcepath.
+./BankService.java:12: error: cannot access LoginService
+    private LoginService loginService = new LoginService();
+            ^
+  bad source file: ./LoginService.java
+    file does not contain class LoginService
+    Please remove or make sure it appears in the correct subdirectory of the sourcepath.
+./Transaction.java:6: error: duplicate class: bankapp.Transaction
+public class Transaction {
+       ^
+./BankService.java:140: error: cannot access Transaction
+    public List<Transaction> getTransactionsByAccount(String accountNumber) throws SQLException {
+                ^
+  bad source file: ./Transaction.java
+    file does not contain class Transaction
+    Please remove or make sure it appears in the correct subdirectory of the sourcepath.
+./com/saintdanielbank/AccountDetailController.java:14: error: cannot find symbol
+    private final BankService bankService;
+                  ^
+  symbol:   class BankService
+  location: class AccountDetailController
+./com/saintdanielbank/AccountDetailController.java:15: error: cannot find symbol
+    private Account account;
+            ^
+  symbol:   class Account
+  location: class AccountDetailController
+./com/saintdanielbank/AccountDetailController.java:17: error: cannot find symbol
+    public AccountDetailController(BankService bankService) { this.bankService = bankService; }
+                                   ^
+  symbol:   class BankService
+  location: class AccountDetailController
+./com/saintdanielbank/AccountDetailController.java:19: error: cannot find symbol
+    public void setAccount(Account a) {
+                           ^
+  symbol:   class Account
+  location: class AccountDetailController
+./com/saintdanielbank/CustomerFormController.java:25: error: cannot find symbol
+    private final BankService bankService;
+                  ^
+  symbol:   class BankService
+  location: class CustomerFormController
+./com/saintdanielbank/CustomerFormController.java:27: error: cannot find symbol
+    public CustomerFormController(BankService bankService) {
+                                  ^
+  symbol:   class BankService
+  location: class CustomerFormController
+./com/saintdanielbank/DashboardController.java:20: error: cannot find symbol
+    private final BankService bankService;
+                  ^
+  symbol:   class BankService
+  location: class DashboardController
+./com/saintdanielbank/DashboardController.java:22: error: cannot find symbol
+    public DashboardController(BankService bankService) {
+                               ^
+  symbol:   class BankService
+  location: class DashboardController
+./com/saintdanielbank/AccountCreateController.java:17: error: cannot find symbol
+    private final BankService bankService;
+                  ^
+  symbol:   class BankService
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:19: error: cannot find symbol
+    public AccountCreateController(BankService bankService) { this.bankService = bankService; }
+                                   ^
+  symbol:   class BankService
+  location: class AccountCreateController
+./com/saintdanielbank/LoginController.java:13: error: cannot find symbol
+    private final BankService bankService;
+                  ^
+  symbol:   class BankService
+  location: class LoginController
+./com/saintdanielbank/LoginController.java:15: error: cannot find symbol
+    public LoginController(BankService bankService) {
+                           ^
+  symbol:   class BankService
+  location: class LoginController
+./bankapp/MainMenuController.java:72: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+                                      ^
+  symbol:   variable BankService
+  location: class MainMenuController
+./bankapp/MainMenuController.java:91: error: incompatible types: Transaction cannot be converted to CAP#1
+                        recentTransactionsTable.getItems().add(t);
+                                                               ^
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends Object from capture of ?
+./bankapp/TransactionHistoryController.java:86: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+                                      ^
+  symbol:   variable BankService
+  location: class TransactionHistoryController
+./bankapp/WithdrawController.java:59: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+                                      ^
+  symbol:   variable BankService
+  location: class WithdrawController
+./bankapp/TransferController.java:65: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+                                      ^
+  symbol:   variable BankService
+  location: class TransferController
+./bankapp/DepositController.java:72: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+                                      ^
+  symbol:   variable BankService
+  location: class DepositController
+./bankapp/TransactionsController.java:68: error: cannot find symbol
+    private BankService bankService = BankService.getInstance();
+                                      ^
+  symbol:   variable BankService
+  location: class TransactionsController
+./BusinessAccount.java:7: error: cannot find symbol
+        this.balance = initialDeposit;
+            ^
+  symbol: variable balance
+./BusinessAccount.java:15: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./BusinessAccount.java:17: error: cannot find symbol
+        if (amount > 0 && amount <= balance) {
+                                    ^
+  symbol:   variable balance
+  location: class BusinessAccount
+./BusinessAccount.java:18: error: cannot find symbol
+            balance -= amount;
+            ^
+  symbol:   variable balance
+  location: class BusinessAccount
+./BusinessAccount.java:25: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./BusinessAccount.java:28: error: cannot find symbol
+        double interest = balance * 0.04; // Example: 4% interest
+                          ^
+  symbol:   variable balance
+  location: class BusinessAccount
+./BusinessAccount.java:29: error: cannot find symbol
+        balance += interest;
+        ^
+  symbol:   variable balance
+  location: class BusinessAccount
+./SavingsAccount.java:8: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./SavingsAccount.java:13: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./SavingsAccount.java:15: error: cannot find symbol
+        double interest = balance * INTEREST_RATE;
+                          ^
+  symbol:   variable balance
+  location: class SavingsAccount
+./SavingsAccount.java:16: error: cannot find symbol
+        balance += interest;
+        ^
+  symbol:   variable balance
+  location: class SavingsAccount
+./InvestmentAccount.java:7: error: cannot find symbol
+            this.balance = initialDeposit;
+                ^
+  symbol: variable balance
+./InvestmentAccount.java:14: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./InvestmentAccount.java:16: error: cannot find symbol
+        if (amount > 0 && amount <= balance) {
+                                    ^
+  symbol:   variable balance
+  location: class InvestmentAccount
+./InvestmentAccount.java:17: error: cannot find symbol
+            balance -= amount;
+            ^
+  symbol:   variable balance
+  location: class InvestmentAccount
+./InvestmentAccount.java:24: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./InvestmentAccount.java:26: error: cannot find symbol
+        double interest = balance * INTEREST_RATE;
+                          ^
+  symbol:   variable balance
+  location: class InvestmentAccount
+./InvestmentAccount.java:27: error: cannot find symbol
+        balance += interest;
+        ^
+  symbol:   variable balance
+  location: class InvestmentAccount
+./ChequeAccount.java:18: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./ChequeAccount.java:20: error: cannot find symbol
+        if (amount > 0 && amount <= balance) {
+                                    ^
+  symbol:   variable balance
+  location: class ChequeAccount
+./ChequeAccount.java:21: error: cannot find symbol
+            balance -= amount;
+            ^
+  symbol:   variable balance
+  location: class ChequeAccount
+./ChequeAccount.java:28: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./PersonalAccount.java:7: error: cannot find symbol
+        this.balance = initialDeposit;
+            ^
+  symbol: variable balance
+./PersonalAccount.java:15: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./PersonalAccount.java:17: error: cannot find symbol
+        if (amount > 0 && amount <= balance) {
+                                    ^
+  symbol:   variable balance
+  location: class PersonalAccount
+./PersonalAccount.java:18: error: cannot find symbol
+            balance -= amount;
+            ^
+  symbol:   variable balance
+  location: class PersonalAccount
+./PersonalAccount.java:25: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+./PersonalAccount.java:28: error: cannot find symbol
+        double interest = balance * 0.03; // Example: 3% interest
+                          ^
+  symbol:   variable balance
+  location: class PersonalAccount
+./PersonalAccount.java:29: error: cannot find symbol
+        balance += interest;
+        ^
+  symbol:   variable balance
+  location: class PersonalAccount
+./DBMain.java:15: error: cannot find symbol
+        System.out.println("Created customer: " + p.getCustomerId());
+                                                   ^
+  symbol:   method getCustomerId()
+  location: variable p of type PersonalCustomer
+./DBMain.java:18: error: cannot find symbol
+        s.deposit(500);
+         ^
+  symbol:   method deposit(int)
+  location: variable s of type SavingsAccount
+./DBMain.java:20: error: cannot find symbol
+        System.out.println("Created savings account: " + s.getAccountNumber());
+                                                          ^
+  symbol:   method getAccountNumber()
+  location: variable s of type SavingsAccount
+./DBMain.java:23: error: cannot find symbol
+        for (Transaction t : s.getTransactions()) {
+                              ^
+  symbol:   method getTransactions()
+  location: variable s of type SavingsAccount
+./Main.java:19: error: cannot find symbol
+        s.deposit(1000);
+         ^
+  symbol:   method deposit(int)
+  location: variable s of type SavingsAccount
+./Main.java:20: error: cannot find symbol
+        i.deposit(200);
+         ^
+  symbol:   method deposit(int)
+  location: variable i of type InvestmentAccount
+./Main.java:21: error: cannot find symbol
+        c.deposit(500);
+         ^
+  symbol:   method deposit(int)
+  location: variable c of type ChequeAccount
+./Main.java:31: error: cannot find symbol
+        s.applyMonthlyInterest();
+         ^
+  symbol:   method applyMonthlyInterest()
+  location: variable s of type SavingsAccount
+./Main.java:32: error: cannot find symbol
+        i.applyMonthlyInterest();
+         ^
+  symbol:   method applyMonthlyInterest()
+  location: variable i of type InvestmentAccount
+./Main.java:35: error: cannot find symbol
+        System.out.println("Savings balance: " + s.getBalance());
+                                                  ^
+  symbol:   method getBalance()
+  location: variable s of type SavingsAccount
+./Main.java:36: error: cannot find symbol
+        System.out.println("Investment balance: " + i.getBalance());
+                                                     ^
+  symbol:   method getBalance()
+  location: variable i of type InvestmentAccount
+./Main.java:37: error: cannot find symbol
+        System.out.println("Cheque balance: " + c.getBalance());
+                                                 ^
+  symbol:   method getBalance()
+  location: variable c of type ChequeAccount
+./Main.java:41: error: cannot find symbol
+        for (Transaction t : c.getTransactions()) System.out.println(t);
+                              ^
+  symbol:   method getTransactions()
+  location: variable c of type ChequeAccount
+./IntegrationTest.java:17: error: cannot find symbol
+        System.out.println("Created customer: " + p.getCustomerId());
+                                                   ^
+  symbol:   method getCustomerId()
+  location: variable p of type PersonalCustomer
+./IntegrationTest.java:22: error: cannot find symbol
+        System.out.println("Opened savings account: " + s.getAccountNumber());
+                                                         ^
+  symbol:   method getAccountNumber()
+  location: variable s of type SavingsAccount
+./IntegrationTest.java:26: error: cannot find symbol
+        System.out.println("Deposited 1000 to account. Balance: " + s.getBalance());
+                                                                     ^
+  symbol:   method getBalance()
+  location: variable s of type SavingsAccount
+./controllers/AccountController.java:16: error: cannot find symbol
+        if (a.getBalance() >= 500) {
+             ^
+  symbol:   method getBalance()
+  location: variable a of type InvestmentAccount
+./com/saintdanielbank/CustomerFormController.java:42: error: cannot find symbol
+            PersonalCustomer p = new PersonalCustomer(id, name, addressField.getText(), phoneField.getText(), emailField.getText(), personalIdField.getText());
+            ^
+  symbol:   class PersonalCustomer
+  location: class CustomerFormController
+./com/saintdanielbank/CustomerFormController.java:42: error: cannot find symbol
+            PersonalCustomer p = new PersonalCustomer(id, name, addressField.getText(), phoneField.getText(), emailField.getText(), personalIdField.getText());
+                                     ^
+  symbol:   class PersonalCustomer
+  location: class CustomerFormController
+./com/saintdanielbank/DashboardController.java:34: error: cannot find symbol
+            List<Customer> customers = bankService.listCustomers();
+                 ^
+  symbol:   class Customer
+  location: class DashboardController
+./com/saintdanielbank/DashboardController.java:35: error: cannot find symbol
+            for (Customer c : customers) customerListView.getItems().add(c.getCustomerId() + " - " + c.getFullName());
+                 ^
+  symbol:   class Customer
+  location: class DashboardController
+./com/saintdanielbank/DashboardController.java:39: error: cannot find symbol
+            for (Customer c : customers) {
+                 ^
+  symbol:   class Customer
+  location: class DashboardController
+./com/saintdanielbank/DashboardController.java:41: error: cannot find symbol
+                    List<Account> accounts = bankService.listAccountsByCustomer(c.getCustomerId());
+                         ^
+  symbol:   class Account
+  location: class DashboardController
+./com/saintdanielbank/DashboardController.java:42: error: cannot find symbol
+                    for (Account a : accounts) {
+                         ^
+  symbol:   class Account
+  location: class DashboardController
+./com/saintdanielbank/AccountCreateController.java:28: error: cannot find symbol
+            Customer c = bankService.findCustomer(custId);
+            ^
+  symbol:   class Customer
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:34: error: cannot find symbol
+                SavingsAccount s = new SavingsAccount(accNo, (PersonalCustomer)c);
+                ^
+  symbol:   class SavingsAccount
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:34: error: cannot find symbol
+                SavingsAccount s = new SavingsAccount(accNo, (PersonalCustomer)c);
+                                       ^
+  symbol:   class SavingsAccount
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:34: error: cannot find symbol
+                SavingsAccount s = new SavingsAccount(accNo, (PersonalCustomer)c);
+                                                              ^
+  symbol:   class PersonalCustomer
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:40: error: cannot find symbol
+                InvestmentAccount ia = new InvestmentAccount(accNo, c, initial);
+                ^
+  symbol:   class InvestmentAccount
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:40: error: cannot find symbol
+                InvestmentAccount ia = new InvestmentAccount(accNo, c, initial);
+                                           ^
+  symbol:   class InvestmentAccount
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:46: error: cannot find symbol
+                        TransactionDAO tdao = new TransactionDAO();
+                        ^
+  symbol:   class TransactionDAO
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:46: error: cannot find symbol
+                        TransactionDAO tdao = new TransactionDAO();
+                                                  ^
+  symbol:   class TransactionDAO
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:47: error: cannot find symbol
+                        Transaction initialTx = ia.getTransactions().get(0);
+                        ^
+  symbol:   class Transaction
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:54: error: cannot find symbol
+                ChequeAccount ca = new ChequeAccount(accNo, c, ((PersonalCustomer)c).getEmployerName());
+                ^
+  symbol:   class ChequeAccount
+  location: class AccountCreateController
+./com/saintdanielbank/AccountCreateController.java:54: error: cannot find symbol
+                ChequeAccount ca = new ChequeAccount(accNo, c, ((PersonalCustomer)c).getEmployerName());
+                                       ^
+  symbol:   class ChequeAccount
+  location: class AccountCreateController
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+only showing the first 100 errors, of 101 total; use -Xmaxerrs if you would like to see more

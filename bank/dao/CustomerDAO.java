@@ -1,16 +1,17 @@
- 
+package bank.dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.sql.SQLException;
-
 import java.sql.Statement;
 import java.sql.Types;
-
- 
+import bank.DatabaseManager;
+import bankapp.Customer;
+import bankapp.PersonalCustomer;
+import bankapp.BusinessCustomer;
 
 public class CustomerDAO {
     public void create(Customer c) throws SQLException {

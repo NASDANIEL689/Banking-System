@@ -20,6 +20,15 @@ public class Transaction {
         this.dateTime = LocalDateTime.now();
     }
 
+    // Constructor for loading from database with specific timestamp
+    public Transaction(String transactionId, String accountNumber, double amount, String type, LocalDateTime dateTime) {
+        this.transactionId = transactionId;
+        this.accountNumber = accountNumber;
+        this.amount = amount;
+        this.type = type;
+        this.dateTime = dateTime;
+    }
+
     public String getTransactionId() { return transactionId; }
     public String getAccountNumber() { return accountNumber; }
     public double getAmount() { return amount; }

@@ -7,6 +7,15 @@ import javafx.scene.control.Alert;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import bankapp.Customer;
+import bankapp.Account;
+import bankapp.PersonalCustomer;
+import bankapp.SavingsAccount;
+import bankapp.InvestmentAccount;
+import bankapp.ChequeAccount;
+import bank.BankService;
+import bankapp.Transaction;
+import bank.dao.TransactionDAO;
 
 public class AccountCreateController {
     @FXML public TextField customerIdField;
@@ -33,12 +42,29 @@ public class AccountCreateController {
             if ("Savings".equals(type)) {
                 SavingsAccount s = new SavingsAccount(accNo, (PersonalCustomer)c);
                 bankService.openSavingsAccount(s);
+                if (initial > 0) {
+                    bankService.deposit(s, initial);
+                }
             } else if ("Investment".equals(type)) {
                 InvestmentAccount ia = new InvestmentAccount(accNo, c, initial);
-                bankService.openSavingsAccount(ia); // reuse openSavingsAccount for persistence path
+                bankService.openInvestmentAccount(ia);
+                // InvestmentAccount constructor already deposits initial amount
+                // Save the transaction that was created
+                if (initial > 0 && !ia.getTransactions().isEmpty()) {
+                    try {
+                        TransactionDAO tdao = new TransactionDAO();
+                        Transaction initialTx = ia.getTransactions().get(0);
+                        tdao.addTransaction(initialTx, ia.getBalance());
+                    } catch (Exception ex) {
+                        System.err.println("Error saving initial deposit transaction: " + ex.getMessage());
+                    }
+                }
             } else if ("Cheque".equals(type)) {
                 ChequeAccount ca = new ChequeAccount(accNo, c, ((PersonalCustomer)c).getEmployerName());
-                bankService.openSavingsAccount(ca);
+                bankService.openChequeAccount(ca);
+                if (initial > 0) {
+                    bankService.deposit(ca, initial);
+                }
             }
             // navigate back to dashboard
             Stage s = (Stage) accountNumberField.getScene().getWindow();

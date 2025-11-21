@@ -62,16 +62,60 @@ public class TransferController implements Initializable {
     
     private Account fromAccount;
     private Account toAccount;
+    private bank.BankService bankService = bank.BankService.getInstance();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         insufficientFundsLabel.setVisible(false);
         
-        // Populate account combos (demo data)
-        fromAccountComboBox.getItems().addAll("Account 1234", "Account 5678");
-        toAccountComboBox.getItems().addAll("Account 5678", "Account 1234", "External Account");
+        // Load accounts from database
+        try {
+            java.util.List<Customer> customers = bankService.listCustomers();
+            for (Customer c : customers) {
+                java.util.List<Account> accounts = bankService.listAccountsByCustomer(c.getCustomerId());
+                for (Account a : accounts) {
+                    String displayText = a.getAccountNumber() + " - " + a.getClass().getSimpleName() + " ($" + String.format("%.2f", a.getBalance()) + ")";
+                    fromAccountComboBox.getItems().add(displayText);
+                    toAccountComboBox.getItems().add(displayText);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading accounts: " + e.getMessage());
+        }
+        
+        // Add listener to update account info when selection changes
+        fromAccountComboBox.setOnAction(e -> updateFromAccount());
+        toAccountComboBox.setOnAction(e -> updateToAccount());
         
         updateAccountInfo();
+    }
+    
+    // Update from account when selection changes
+    private void updateFromAccount() {
+        String selected = fromAccountComboBox.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            String accountNumber = selected.split(" - ")[0];
+            try {
+                fromAccount = bankService.findAccount(accountNumber);
+                updateAccountInfo();
+            } catch (Exception e) {
+                System.err.println("Error loading account: " + e.getMessage());
+            }
+        }
+    }
+    
+    // Update to account when selection changes
+    private void updateToAccount() {
+        String selected = toAccountComboBox.getSelectionModel().getSelectedItem();
+        if (selected != null && !selected.equals("External Account")) {
+            String accountNumber = selected.split(" - ")[0];
+            try {
+                toAccount = bankService.findAccount(accountNumber);
+                updateAccountInfo();
+            } catch (Exception e) {
+                System.err.println("Error loading account: " + e.getMessage());
+            }
+        }
     }
     
     private void updateAccountInfo() {
@@ -125,22 +169,36 @@ public class TransferController implements Initializable {
                 return;
             }
             
-            if (fromAccount != null && amount > fromAccount.getBalance()) {
+            if (fromAccount == null) {
+                showAlert("Error", "Please select a source account");
+                return;
+            }
+            
+            if (toAccount == null) {
+                showAlert("Error", "Please select a destination account");
+                return;
+            }
+            
+            if (fromAccount.getAccountNumber().equals(toAccount.getAccountNumber())) {
+                showAlert("Error", "Source and destination accounts cannot be the same");
+                return;
+            }
+            
+            if (amount > fromAccount.getBalance()) {
                 showAlert("Error", "Insufficient funds in source account");
                 return;
             }
             
-            // Process transfer
-            if (fromAccount != null && toAccount != null) {
-                fromAccount.withdraw(amount);
-                toAccount.deposit(amount, "Transfer from " + fromAccount.getAccountNumber());
+            // Process transfer using BankService to persist to database
+            try {
+                bankService.transfer(fromAccount, toAccount, amount);
                 showAlert("Success", "Transfer of $" + String.format("%.2f", amount) + " completed successfully!");
                 
                 amountField.clear();
                 descriptionField.clear();
                 updateAccountInfo();
-            } else {
-                showAlert("Info", "Transfer would be processed. (Demo mode)");
+            } catch (Exception e) {
+                showAlert("Error", "Failed to process transfer: " + e.getMessage());
             }
             
         } catch (NumberFormatException e) {

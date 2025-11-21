@@ -8,8 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.List;
+import bank.BankService;
+import bankapp.Customer;
+import bankapp.Account;
 
 public class DashboardController {
     @FXML
@@ -35,10 +37,16 @@ public class DashboardController {
             for (Customer c : customers) customerListView.getItems().add(c.getCustomerId() + " - " + c.getFullName());
 
             accountListView.getItems().clear();
-            // simple listing via AccountDAO would be better; for now show accounts for first customer
-            if (!customers.isEmpty()) {
-                Customer first = customers.get(0);
-                for (Account a : first.getAccounts()) accountListView.getItems().add(a.getAccountNumber() + " - " + a.getClass().getSimpleName());
+            // Load accounts from database for all customers
+            for (Customer c : customers) {
+                try {
+                    List<Account> accounts = bankService.listAccountsByCustomer(c.getCustomerId());
+                    for (Account a : accounts) {
+                        accountListView.getItems().add(a.getAccountNumber() + " - " + a.getClass().getSimpleName() + " ($" + String.format("%.2f", a.getBalance()) + ")");
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error loading accounts for customer " + c.getCustomerId() + ": " + e.getMessage());
+                }
             }
         } catch (Exception e) {
             showError(e.getMessage());

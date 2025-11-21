@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.List;
 
 // Controller for the deposit view
 public class DepositController implements Initializable {
@@ -68,6 +69,7 @@ public class DepositController implements Initializable {
     
     // Current account (would be set from previous screen)
     private Account currentAccount;
+    private bank.BankService bankService = bank.BankService.getInstance();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,9 +87,36 @@ public class DepositController implements Initializable {
         if (amountColumn != null) {
             amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         }
+        if (methodColumn != null) {
+            methodColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        }
+        if (descriptionColumn != null) {
+            descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        }
         
         // Update account info
         updateAccountInfo();
+        loadRecentTransactions();
+    }
+    
+    // Load recent transactions from database
+    private void loadRecentTransactions() {
+        if (currentAccount != null && recentDepositsTable != null) {
+            try {
+                List<Transaction> transactions = bankService.getTransactionsByAccount(currentAccount.getAccountNumber());
+                // Filter for deposits only and limit to recent 10
+                recentDepositsTable.getItems().clear();
+                int count = 0;
+                for (Transaction t : transactions) {
+                    if (t.getType().contains("DEPOSIT") && count < 10) {
+                        recentDepositsTable.getItems().add(t);
+                        count++;
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error loading transactions: " + e.getMessage());
+            }
+        }
     }
     
     // Update account information display
@@ -149,17 +178,23 @@ public class DepositController implements Initializable {
             
             // Process deposit
             if (currentAccount != null) {
-                currentAccount.deposit(amount, description);
-                showAlert("Success", "Deposit of $" + String.format("%.2f", amount) + " processed successfully!");
-                
-                // Clear fields
-                amountField.clear();
-                descriptionField.clear();
-                
-                // Update balance
-                updateAccountInfo();
+                try {
+                    // Use BankService to persist to database
+                    bankService.deposit(currentAccount, amount);
+                    showAlert("Success", "Deposit of $" + String.format("%.2f", amount) + " processed successfully!");
+                    
+                    // Clear fields
+                    amountField.clear();
+                    descriptionField.clear();
+                    
+                    // Update balance and reload transactions
+                    updateAccountInfo();
+                    loadRecentTransactions();
+                } catch (Exception e) {
+                    showAlert("Error", "Failed to process deposit: " + e.getMessage());
+                }
             } else {
-                showAlert("Info", "Deposit would be processed. (Demo mode - no account connected)");
+                showAlert("Error", "No account selected. Please select an account first.");
             }
             
         } catch (NumberFormatException e) {
