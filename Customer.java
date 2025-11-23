@@ -3,45 +3,42 @@ package bankapp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer {
-    protected String customerId;
-    protected String fullName; // Can be person or business name
+public abstract class Customer {
+    protected String customerID;
     protected String address;
-    protected String phoneNumber;
+    protected String phone;
     protected String email;
+    protected String username;
+    protected String password;
     protected List<Account> accounts = new ArrayList<>();
 
-    public Customer(String customerId, String fullName, String address, String phoneNumber, String email) {
-        this.customerId = customerId;
-        this.fullName = fullName;
+    public Customer(String customerID, String address, String phone, String email, String username, String password) {
+        this.customerID = customerID;
         this.address = address;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
         this.email = email;
+        this.username = username;
+        this.password = password;
     }
 
-    public String getCustomerId() { return customerId; }
-    public String getFullName() { return fullName; }
+    public String getCustomerID() { return customerID; }
     public String getAddress() { return address; }
-    public String getPhoneNumber() { return phoneNumber; }
+    public String getPhone() { return phone; }
     public String getEmail() { return email; }
+    public String getUsername() { return username; }
+    public String getPassword() { return password; }
 
-    public void setCustomerId(String customerId) { this.customerId = customerId; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+    public void setCustomerID(String customerID) { this.customerID = customerID; }
     public void setAddress(String address) { this.address = address; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPhone(String phone) { this.phone = phone; }
     public void setEmail(String email) { this.email = email; }
+    public void setUsername(String username) { this.username = username; }
+    public void setPassword(String password) { this.password = password; }
 
     // Manage accounts
     public void addAccount(Account account) { accounts.add(account); }
     public List<Account> getAccounts() { return accounts; }
 
-    // Display customer details
-    public void displayCustomerInfo() {
-        System.out.println("Customer ID: " + customerId);
-        System.out.println("Full Name: " + fullName);
-        System.out.println("Address: " + address);
-        System.out.println("Phone: " + phoneNumber);
-        System.out.println("Email: " + email);
-        System.out.println("Number of Accounts: " + accounts.size());
-    }
+    // Abstract method to display customer details (must be implemented by subclasses)
+    public abstract void displayInfo();
 }

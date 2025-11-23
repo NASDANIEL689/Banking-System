@@ -1,24 +1,31 @@
-public class ChequeAccount extends Account {
+package bankapp;
+
+public class ChequeAccount extends Account implements Withdrawable {
     private String employerName;
 
-    public ChequeAccount(String accountNumber, Customer customer, String employerName) {
-        super(accountNumber, customer);
-        // Enforce that only employed PersonalCustomer can open ChequeAccount
-        if (!(customer instanceof PersonalCustomer)) {
-            throw new IllegalArgumentException("ChequeAccount can only be opened by a personal customer who is employed.");
+    public ChequeAccount(String accountNumber, Customer owner, String employerName) {
+        super(accountNumber, owner);
+        // Enforce that only employed IndividualCustomer or CompanyCustomer can open ChequeAccount
+        if (owner instanceof IndividualCustomer) {
+            IndividualCustomer ic = (IndividualCustomer) owner;
+            if (!ic.isEmployed()) {
+                throw new IllegalArgumentException("Individual customer must be employed to open a ChequeAccount.");
+            }
+            // Prefer employerName from customer if available
+            this.employerName = (ic.getEmployerName() != null && !ic.getEmployerName().isEmpty()) ? ic.getEmployerName() : employerName;
+        } else if (owner instanceof CompanyCustomer) {
+            // Company customers can open cheque accounts
+            this.employerName = null; // Not applicable for companies
+        } else {
+            throw new IllegalArgumentException("ChequeAccount can only be opened by an employed individual customer or a company customer.");
         }
-        PersonalCustomer pc = (PersonalCustomer) customer;
-        if (!pc.isEmployed()) {
-            throw new IllegalArgumentException("Personal customer must be employed to open a ChequeAccount.");
-        }
-        // Prefer employerName from customer if available
-        this.employerName = (pc.getEmployerName() != null && !pc.getEmployerName().isEmpty()) ? pc.getEmployerName() : employerName;
     }
 
     @Override
     public void withdraw(double amount) {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
+            recordTransaction("withdrawal", amount);
             System.out.println("Withdrawn: BWP " + amount);
         } else {
             System.out.println("Invalid or insufficient funds for withdrawal.");
@@ -26,7 +33,8 @@ public class ChequeAccount extends Account {
     }
 
     @Override
-    public void calculateInterest() {
+    public void applyMonthlyInterest() {
+        // Cheque Account does not earn interest
         System.out.println("Cheque Account does not earn interest.");
     }
 

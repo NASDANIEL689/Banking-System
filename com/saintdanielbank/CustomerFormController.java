@@ -10,7 +10,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import bankapp.PersonalCustomer;
+import bankapp.IndividualCustomer;
+import bank.BankService;
 
 public class CustomerFormController {
     @FXML public TextField customerIdField;
@@ -40,9 +41,14 @@ public class CustomerFormController {
         try {
             String id = customerIdField.getText();
             String name = fullNameField.getText();
-            PersonalCustomer p = new PersonalCustomer(id, name, addressField.getText(), phoneField.getText(), emailField.getText(), personalIdField.getText());
-            if (employedCheckBox.isSelected()) p.setEmployment(employerField.getText());
-            bankService.createPersonalCustomer(p);
+            // Split name into firstname and surname
+            String[] nameParts = name.split(" ", 2);
+            String firstname = nameParts.length > 0 ? nameParts[0] : name;
+            String surname = nameParts.length > 1 ? nameParts[1] : "";
+            IndividualCustomer ic = new IndividualCustomer(id, firstname, surname, personalIdField.getText(), 
+                addressField.getText(), phoneField.getText(), emailField.getText(), "user" + id, "pass" + id);
+            if (employedCheckBox.isSelected()) ic.setEmployment(employerField.getText());
+            bankService.createIndividualCustomer(ic);
             // go back to dashboard
             Stage s = (Stage) customerIdField.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));

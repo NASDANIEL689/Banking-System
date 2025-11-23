@@ -1,19 +1,30 @@
 package bankapp;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Account implements IAccount, ITransaction {
     protected String accountNumber;
     protected double balance;
-    protected Customer customer;
+    protected Customer owner;
+    protected LocalDate openedDate;
     protected List<Transaction> transactions = new ArrayList<>();
 
     // Constructor
-    public Account(String accountNumber, Customer customer) {
+    public Account(String accountNumber, Customer owner) {
         this.accountNumber = accountNumber;
-        this.customer = customer;
+        this.owner = owner;
         this.balance = 0.0;
+        this.openedDate = LocalDate.now();
+    }
+
+    // Constructor with explicit open date
+    public Account(String accountNumber, Customer owner, LocalDate openedDate) {
+        this.accountNumber = accountNumber;
+        this.owner = owner;
+        this.balance = 0.0;
+        this.openedDate = openedDate;
     }
 
     // Deposit funds
@@ -26,7 +37,7 @@ public abstract class Account implements IAccount, ITransaction {
         if (amount > 0) {
             balance += amount;
             System.out.println("Deposited: BWP " + amount);
-            recordTransaction("DEPOSIT: " + narration, amount);
+            recordTransaction("deposit", amount);
         } else {
             System.out.println("Invalid deposit amount.");
         }
@@ -35,8 +46,8 @@ public abstract class Account implements IAccount, ITransaction {
     // Withdraw funds (abstract - implemented differently by subclasses)
     public abstract void withdraw(double amount);
 
-    // Calculate interest (abstract - implemented differently by subclasses)
-    public abstract void calculateInterest();
+    // Apply monthly interest (abstract - implemented differently by subclasses)
+    public abstract void applyMonthlyInterest();
 
     // Getters
     public String getAccountNumber() {
@@ -47,8 +58,24 @@ public abstract class Account implements IAccount, ITransaction {
         return balance;
     }
 
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public Customer getOwner() {
+        return owner;
+    }
+
     public Customer getCustomer() {
-        return customer;
+        return owner; // For backward compatibility
+    }
+
+    public LocalDate getOpenedDate() {
+        return openedDate;
+    }
+
+    public void setOpenedDate(LocalDate openedDate) {
+        this.openedDate = openedDate;
     }
 
     // Transaction recording
@@ -71,12 +98,9 @@ public abstract class Account implements IAccount, ITransaction {
     // Display basic info
     public void displayAccountInfo() {
         System.out.println("Account Number: " + accountNumber);
-        System.out.println("Account Holder: " + (customer != null ? customer.getFullName() : "(no owner)"));
+        System.out.println("Account Holder: " + (owner != null ? owner.getCustomerID() : "(no owner)"));
         System.out.println("Balance: BWP " + balance);
+        System.out.println("Opened Date: " + openedDate);
     }
 
-    @Override
-    public void applyMonthlyInterest() {
-        calculateInterest();
-    }
 }

@@ -99,7 +99,7 @@ public class TransactionsController implements Initializable {
             int totalCount = 0;
             
             for (Customer c : customers) {
-                List<Account> accounts = bankService.listAccountsByCustomer(c.getCustomerId());
+                List<Account> accounts = bankService.listAccountsByCustomer(c.getCustomerID());
                 for (Account a : accounts) {
                     List<Transaction> transactions = bankService.getTransactionsByAccount(a.getAccountNumber());
                     for (Transaction t : transactions) {

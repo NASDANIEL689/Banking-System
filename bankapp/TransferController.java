@@ -72,7 +72,7 @@ public class TransferController implements Initializable {
         try {
             java.util.List<Customer> customers = bankService.listCustomers();
             for (Customer c : customers) {
-                java.util.List<Account> accounts = bankService.listAccountsByCustomer(c.getCustomerId());
+                java.util.List<Account> accounts = bankService.listAccountsByCustomer(c.getCustomerID());
                 for (Account a : accounts) {
                     String displayText = a.getAccountNumber() + " - " + a.getClass().getSimpleName() + " ($" + String.format("%.2f", a.getBalance()) + ")";
                     fromAccountComboBox.getItems().add(displayText);

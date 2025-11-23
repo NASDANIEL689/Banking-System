@@ -8,8 +8,8 @@ import bank.dao.TransactionDAO;
 import bankapp.LoginService;
 import bankapp.Customer;
 import bankapp.Account;
-import bankapp.PersonalCustomer;
-import bankapp.BusinessCustomer;
+import bankapp.IndividualCustomer;
+import bankapp.CompanyCustomer;
 import bankapp.SavingsAccount;
 import bankapp.InvestmentAccount;
 import bankapp.ChequeAccount;
@@ -34,12 +34,12 @@ public class BankService {
         loginService.registerUser(username, password);
     }
 
-    public void createPersonalCustomer(PersonalCustomer pc) throws SQLException {
-        customerDAO.create(pc);
+    public void createIndividualCustomer(IndividualCustomer ic) throws SQLException {
+        customerDAO.create(ic);
     }
 
-    public void createBusinessCustomer(BusinessCustomer bc) throws SQLException {
-        customerDAO.create(bc);
+    public void createCompanyCustomer(CompanyCustomer cc) throws SQLException {
+        customerDAO.create(cc);
     }
 
     public void openSavingsAccount(SavingsAccount sa) throws SQLException {
@@ -72,7 +72,7 @@ public class BankService {
                 }
             }
             if (!exists) {
-                transactionDAO.addTransaction(t, a.getBalance());
+                transactionDAO.addTransaction(t);
             }
         }
     }
@@ -93,7 +93,7 @@ public class BankService {
                 }
             }
             if (!exists) {
-                transactionDAO.addTransaction(t, a.getBalance());
+                transactionDAO.addTransaction(t);
             }
         }
     }
@@ -116,7 +116,7 @@ public class BankService {
                 }
             }
             if (!exists) {
-                transactionDAO.addTransaction(t, fromAccount.getBalance());
+                transactionDAO.addTransaction(t);
             }
         }
         List<Transaction> toTransactions = toAccount.getTransactions();
@@ -130,7 +130,7 @@ public class BankService {
                 }
             }
             if (!exists) {
-                transactionDAO.addTransaction(t, toAccount.getBalance());
+                transactionDAO.addTransaction(t);
             }
         }
     }

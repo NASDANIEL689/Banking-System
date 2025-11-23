@@ -3,29 +3,44 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.saintdanielbank.AccountCreateController" spacing="8" padding="10">
-    <Label text="Create Account" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
-    <GridPane hgap="8" vgap="8">
-        <columnConstraints>
-            <ColumnConstraints percentWidth="30" />
-            <ColumnConstraints percentWidth="70" />
-        </columnConstraints>
-        <children>
-            <Label text="Customer ID:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-            <TextField fx:id="customerIdField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
-
-            <Label text="Account Number:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-            <TextField fx:id="accountNumberField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-
-            <Label text="Type:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-            <ChoiceBox fx:id="accountTypeChoice" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-
-            <Label text="Initial Deposit:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-            <TextField fx:id="initialDepositField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
-        </children>
-    </GridPane>
-    <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Create" onAction="#onCreate" />
-        <Button text="Cancel" onAction="#onCancel" />
-    </HBox>
-</VBox>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.saintdanielbank.AccountCreateController" prefWidth="600" prefHeight="500">
+    <center>
+        <VBox spacing="20" alignment="CENTER">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30" />
+            </padding>
+            
+            <Label text="Create New Account" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+            
+            <VBox spacing="15" alignment="CENTER_LEFT" prefWidth="400">
+                <Label text="Choose Account Type:" style="-fx-font-weight: bold;" />
+                <ChoiceBox fx:id="accountTypeChoice" prefWidth="400" />
+                
+                <Label text="Account Number:" />
+                <TextField fx:id="accountNumberField" promptText="Enter account number" prefWidth="400" />
+                
+                <VBox fx:id="savingsFields" spacing="10">
+                    <Label text="Initial Deposit:" />
+                    <TextField fx:id="savingsDepositField" promptText="Enter deposit amount" prefWidth="400" />
+                </VBox>
+                
+                <VBox fx:id="investmentFields" spacing="10" visible="false">
+                    <Label text="Initial Deposit (Minimum P500):" />
+                    <TextField fx:id="investmentDepositField" promptText="Enter deposit amount (min P500)" prefWidth="400" />
+                </VBox>
+                
+                <VBox fx:id="chequeFields" spacing="10" visible="false">
+                    <Label fx:id="employerLabel" text="Employer Name (for Individual customers):" />
+                    <TextField fx:id="employerField" promptText="Enter employer name" prefWidth="400" />
+                    <Label text="Initial Deposit (optional):" />
+                    <TextField fx:id="chequeDepositField" promptText="Enter deposit amount" prefWidth="400" />
+                </VBox>
+            </VBox>
+            
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Create Account" onAction="#onCreate" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 150;" />
+                <Button text="Cancel" onAction="#onCancel" style="-fx-background-color: #ccc; -fx-pref-width: 100;" />
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

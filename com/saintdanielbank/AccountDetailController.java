@@ -6,6 +6,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import bank.BankService;
 import bankapp.Account;
+import bankapp.Customer;
+import bankapp.IndividualCustomer;
+import bankapp.CompanyCustomer;
 
 public class AccountDetailController {
     @FXML public Label accountNumberLabel;
@@ -21,7 +24,12 @@ public class AccountDetailController {
     public void setAccount(Account a) {
         this.account = a;
         accountNumberLabel.setText(a.getAccountNumber());
-        ownerLabel.setText(a.getCustomer().getFullName());
+        Customer owner = a.getCustomer();
+        String ownerName = owner instanceof IndividualCustomer ? 
+            ((IndividualCustomer)owner).getFirstname() + " " + ((IndividualCustomer)owner).getSurname() :
+            owner instanceof bankapp.CompanyCustomer ? 
+            ((bankapp.CompanyCustomer)owner).getCompanyName() : owner.getCustomerID();
+        ownerLabel.setText(ownerName);
         balanceLabel.setText(String.valueOf(a.getBalance()));
     }
 

@@ -1,13 +1,19 @@
-public class InvestmentAccount extends Account {
-    private static final double INTEREST_RATE = 0.05; // 5%
+package bankapp;
 
-    public InvestmentAccount(String accountNumber, Customer customer, double initialDeposit) {
-        super(accountNumber, customer);
-        if (initialDeposit >= 500) {
+public class InvestmentAccount extends Account implements Withdrawable {
+    private static final double INTEREST_RATE = 0.05; // 5% monthly
+    private static final double MINIMUM_OPENING_BALANCE = 500.0;
+
+    public InvestmentAccount(String accountNumber, Customer owner, double initialDeposit) {
+        super(accountNumber, owner);
+        if (initialDeposit >= MINIMUM_OPENING_BALANCE) {
             this.balance = initialDeposit;
+            if (initialDeposit > 0) {
+                recordTransaction("deposit", initialDeposit);
+            }
             System.out.println("Investment account opened with BWP " + initialDeposit);
         } else {
-            System.out.println("Initial deposit must be at least BWP 500. Account not activated.");
+            throw new IllegalArgumentException("Investment account requires minimum opening balance of P500. Provided: P" + initialDeposit);
         }
     }
 
@@ -15,6 +21,7 @@ public class InvestmentAccount extends Account {
     public void withdraw(double amount) {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
+            recordTransaction("withdrawal", amount);
             System.out.println("Withdrawn: BWP " + amount);
         } else {
             System.out.println("Invalid or insufficient funds for withdrawal.");
@@ -22,9 +29,10 @@ public class InvestmentAccount extends Account {
     }
 
     @Override
-    public void calculateInterest() {
+    public void applyMonthlyInterest() {
         double interest = balance * INTEREST_RATE;
         balance += interest;
+        recordTransaction("interest", interest);
         System.out.println("Interest of BWP " + interest + " added to Investment Account.");
     }
 }

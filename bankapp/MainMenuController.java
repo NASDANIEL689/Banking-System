@@ -53,19 +53,19 @@ public class MainMenuController implements Initializable {
     private Button viewAllTransactionsButton;
     
     @FXML
-    private TableView<?> recentTransactionsTable;
+    private TableView<Transaction> recentTransactionsTable;
     
     @FXML
-    private TableColumn<?, ?> dateColumn;
+    private TableColumn<Transaction, String> dateColumn;
     
     @FXML
-    private TableColumn<?, ?> typeColumn;
+    private TableColumn<Transaction, String> typeColumn;
     
     @FXML
-    private TableColumn<?, ?> amountColumn;
+    private TableColumn<Transaction, Double> amountColumn;
     
     @FXML
-    private TableColumn<?, ?> descriptionColumn;
+    private TableColumn<Transaction, String> descriptionColumn;
     
     // Current account (would be set from login)
     private Account currentAccount;
