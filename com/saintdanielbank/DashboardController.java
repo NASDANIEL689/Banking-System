@@ -8,6 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import bank.BankService;
 import bankapp.Customer;
 import bankapp.Account;
@@ -21,6 +25,8 @@ import bankapp.Withdrawable;
 public class DashboardController {
     @FXML
     public Label welcomeLabel;
+    @FXML
+    public Label totalBalanceLabel;
     @FXML
     public VBox accountsContainer;
 
@@ -63,6 +69,7 @@ public class DashboardController {
             accountsContainer.getChildren().clear();
             
             List<Account> accounts = bankService.listAccountsByCustomer(currentUser.getCustomerID());
+            updateTotalBalanceLabel(accounts);
             
             if (accounts.isEmpty()) {
                 Label noAccountsLabel = new Label("You don't have any accounts yet. Click 'Create New Account' to get started.");
@@ -217,5 +224,104 @@ public class DashboardController {
     private void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR, msg);
         a.showAndWait();
+    }
+
+    private void updateTotalBalanceLabel(List<Account> accounts) {
+        double total = 0.0;
+        for (Account account : accounts) {
+            total += account.getBalance();
+        }
+        if (totalBalanceLabel != null) {
+            totalBalanceLabel.setText("Total Balance: P" + String.format("%.2f", total));
+        }
+    }
+
+    @FXML
+    public void onTransferBetweenAccounts() {
+        try {
+            List<Account> accounts = bankService.listAccountsByCustomer(currentUser.getCustomerID());
+            if (accounts.size() < 2) {
+                showError("You need at least two accounts to transfer between.");
+                return;
+            }
+
+            Account fromAccountSelection = promptForAccount("Select Source Account", accounts, null);
+            if (fromAccountSelection == null) {
+                return;
+            }
+
+            Account toAccountSelection = promptForAccount("Select Destination Account", accounts, fromAccountSelection);
+            if (toAccountSelection == null) {
+                return;
+            }
+
+            TextInputDialog amountDialog = new TextInputDialog();
+            amountDialog.setTitle("Transfer Amount");
+            amountDialog.setHeaderText("Enter amount to transfer from " + fromAccountSelection.getAccountNumber() + " to " + toAccountSelection.getAccountNumber());
+            amountDialog.setContentText("Amount (P):");
+            Optional<String> amountResult = amountDialog.showAndWait();
+            if (!amountResult.isPresent()) {
+                return;
+            }
+
+            double amount;
+            try {
+                amount = Double.parseDouble(amountResult.get().trim());
+            } catch (NumberFormatException ex) {
+                showError("Please enter a valid number for the amount.");
+                return;
+            }
+
+            if (amount <= 0) {
+                showError("Amount must be greater than zero.");
+                return;
+            }
+
+            if (amount > fromAccountSelection.getBalance()) {
+                showError("Insufficient funds in the source account.");
+                return;
+            }
+
+            bankService.transfer(fromAccountSelection, toAccountSelection, amount);
+
+            Alert success = new Alert(Alert.AlertType.INFORMATION);
+            success.setTitle("Success");
+            success.setHeaderText(null);
+            success.setContentText("Transferred P" + String.format("%.2f", amount) + " successfully.");
+            success.showAndWait();
+
+            loadUserAccounts();
+        } catch (Exception e) {
+            showError("Error during transfer: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private Account promptForAccount(String title, List<Account> accounts, Account excludeAccount) {
+        List<String> options = new ArrayList<>();
+        Map<String, Account> accountMap = new HashMap<>();
+
+        for (Account account : accounts) {
+            if (excludeAccount != null && account.getAccountNumber().equals(excludeAccount.getAccountNumber())) {
+                continue;
+            }
+            String display = account.getAccountNumber() + " (" + account.getClass().getSimpleName().replace("Account", "") + ") - P" + String.format("%.2f", account.getBalance());
+            options.add(display);
+            accountMap.put(display, account);
+        }
+
+        if (options.isEmpty()) {
+            return null;
+        }
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(options.get(0), options);
+        dialog.setTitle(title);
+        dialog.setHeaderText(null);
+        dialog.setContentText("Choose account:");
+        Optional<String> result = dialog.showAndWait();
+        if (!result.isPresent()) {
+            return null;
+        }
+        return accountMap.get(result.get());
     }
 }

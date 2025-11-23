@@ -16,8 +16,8 @@
                 <Label text="Choose Account Type:" style="-fx-font-weight: bold;" />
                 <ChoiceBox fx:id="accountTypeChoice" prefWidth="400" />
                 
-                <Label text="Account Number:" />
-                <TextField fx:id="accountNumberField" promptText="Enter account number" prefWidth="400" />
+                <Label text="Account Number (auto-generated):" />
+                <TextField fx:id="accountNumberField" promptText="Generated automatically" prefWidth="400" editable="false" />
                 
                 <VBox fx:id="savingsFields" spacing="10">
                     <Label text="Initial Deposit:" />

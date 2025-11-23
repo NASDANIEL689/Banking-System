@@ -25,77 +25,108 @@
                            style="-fx-font-size: 13px; -fx-text-fill: #444;" />
                 </VBox>
 
-                <!-- Form Fields in Grid -->
-                <GridPane hgap="20" vgap="15" alignment="CENTER">
-                    <columnConstraints>
-                        <ColumnConstraints prefWidth="250" />
-                        <ColumnConstraints prefWidth="250" />
-                    </columnConstraints>
+                <!-- Personal Information Section -->
+                <VBox spacing="10" prefWidth="520">
+                    <Label text="Personal Information" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0d47a1;" />
+                    <GridPane hgap="20" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints prefWidth="250" />
+                            <ColumnConstraints prefWidth="250" />
+                        </columnConstraints>
 
-                    <!-- First Name -->
-                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                        <Label text="First Name *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <TextField fx:id="firstNameField" promptText="Enter first name"
-                                   style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="First Name *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <TextField fx:id="firstNameField" promptText="Enter first name"
+                                       style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
 
-                    <!-- Last Name -->
-                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                        <Label text="Last Name *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <TextField fx:id="lastNameField" promptText="Enter last name"
-                                   style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Last Name *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <TextField fx:id="lastNameField" promptText="Enter last name"
+                                       style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
 
-                    <!-- Email -->
-                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                        <Label text="Email *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <TextField fx:id="emailField" promptText="Enter email address"
-                                   style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                            <Label text="National ID / Registration No. *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <TextField fx:id="nationalIdField" promptText="Enter national ID or registration number"
+                                       style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
 
-                    <!-- Phone -->
-                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <Label text="Phone Number *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <TextField fx:id="phoneField" promptText="Enter phone number"
-                                   style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <Label text="Email *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <TextField fx:id="emailField" promptText="Enter email address"
+                                       style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
 
-                    <!-- Username -->
-                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                        <Label text="Username *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <TextField fx:id="usernameField" promptText="Choose username"
-                                   style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <Label text="Phone Number *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <TextField fx:id="phoneField" promptText="Enter phone number"
+                                       style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
+                    </GridPane>
+                </VBox>
 
-                    <!-- Account Type -->
-                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <Label text="Account Type *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <ComboBox fx:id="accountTypeComboBox" promptText="Select account type"
-                                  style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                <Separator />
 
-                    <!-- Password -->
-                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                        <Label text="Password *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <PasswordField fx:id="passwordField" promptText="Create password"
-                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                <!-- Account Setup Section -->
+                <VBox spacing="10" prefWidth="520">
+                    <Label text="Account Setup" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0d47a1;" />
+                    <GridPane hgap="20" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints prefWidth="250" />
+                            <ColumnConstraints prefWidth="250" />
+                        </columnConstraints>
 
-                    <!-- Confirm Password -->
-                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                        <Label text="Confirm Password *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <PasswordField fx:id="confirmPasswordField" promptText="Confirm password"
-                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Username *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <TextField fx:id="usernameField" promptText="Choose username"
+                                       style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
 
-                    <!-- Address -->
-                    <VBox spacing="5" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4">
-                        <Label text="Address *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
-                        <TextField fx:id="addressField" promptText="Enter your address"
-                                   style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #90caf9; -fx-border-width: 1;" />
-                    </VBox>
+                        <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Account Type *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <ComboBox fx:id="accountTypeComboBox" promptText="Select account type"
+                                      style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
 
-                </GridPane>
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                            <Label text="Initial Deposit (BWP) *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <TextField fx:id="initialDepositField" promptText="Enter the amount you want to deposit"
+                                       style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
+                    </GridPane>
+                </VBox>
+
+                <Separator />
+
+                <!-- Security & Contact Section -->
+                <VBox spacing="10" prefWidth="520">
+                    <Label text="Security &amp; Contact" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0d47a1;" />
+                    <GridPane hgap="20" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints prefWidth="250" />
+                            <ColumnConstraints prefWidth="250" />
+                        </columnConstraints>
+
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Password *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <PasswordField fx:id="passwordField" promptText="Create password"
+                                           style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
+
+                        <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="Confirm Password *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <PasswordField fx:id="confirmPasswordField" promptText="Confirm password"
+                                           style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
+
+                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                            <Label text="Address *" style="-fx-text-fill: #333; -fx-font-weight: bold;" />
+                            <TextField fx:id="addressField" promptText="Enter your address"
+                                       style="-fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-border-width: 1;" />
+                        </VBox>
+                    </GridPane>
+                </VBox>
 
                 <!-- Terms and Conditions -->
                 <HBox alignment="CENTER_LEFT" spacing="5" prefWidth="520">

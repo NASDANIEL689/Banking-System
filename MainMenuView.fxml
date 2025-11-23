@@ -82,7 +82,7 @@
                         onAction="#handleAccountSettings" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
                 <!-- Help Button -->
-                <Button fx:id="helpButton" text="Help & Support" prefHeight="80"
+                <Button fx:id="helpButton" text="Help &amp; Support" prefHeight="80"
                         style="-fx-background-color: #00BCD4; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 10;"
                         onAction="#handleHelp" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 

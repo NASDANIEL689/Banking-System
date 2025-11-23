@@ -1,13 +1,22 @@
 package bankapp;
 
+import bank.BankService;
+import bank.dao.CustomerDAO;
+import bankapp.IndividualCustomer;
+import bankapp.SavingsAccount;
+import bankapp.InvestmentAccount;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 // Controller for the sign up view
 public class SignUpController implements Initializable {
+    private final BankService bankService = BankService.getInstance();
+    private final CustomerDAO customerDAO = new CustomerDAO();
     
     @FXML
     private TextField firstNameField;
@@ -20,6 +29,12 @@ public class SignUpController implements Initializable {
     
     @FXML
     private TextField phoneField;
+
+    @FXML
+    private TextField nationalIdField;
+
+    @FXML
+    private TextField initialDepositField;
     
     @FXML
     private TextField usernameField;
@@ -47,8 +62,11 @@ public class SignUpController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Populate account type combo
-        accountTypeComboBox.getItems().addAll("Personal", "Business", "Savings", "Investment");
+        // Populate account type combo with supported account types
+        accountTypeComboBox.getItems().clear();
+        accountTypeComboBox.getItems().add("Savings Account");
+        accountTypeComboBox.getItems().add("Investment Account");
+        accountTypeComboBox.getSelectionModel().selectFirst();
     }
     
     @FXML
@@ -66,6 +84,11 @@ public class SignUpController implements Initializable {
         
         if (emailField.getText().trim().isEmpty()) {
             showAlert("Error", "Please enter your email");
+            return;
+        }
+
+        if (nationalIdField.getText().trim().isEmpty()) {
+            showAlert("Error", "Please enter your national ID or registration number");
             return;
         }
         
@@ -93,15 +116,76 @@ public class SignUpController implements Initializable {
             showAlert("Error", "Please enter your address");
             return;
         }
+
+        if (accountTypeComboBox.getValue() == null) {
+            showAlert("Error", "Please select an account type");
+            return;
+        }
+
+        if (initialDepositField.getText().trim().isEmpty()) {
+            showAlert("Error", "Please enter your initial deposit amount");
+            return;
+        }
+
+        double initialDeposit;
+        try {
+            initialDeposit = Double.parseDouble(initialDepositField.getText().trim());
+        } catch (NumberFormatException ex) {
+            showAlert("Error", "Initial deposit must be a valid number");
+            return;
+        }
+
+        if (initialDeposit <= 0) {
+            showAlert("Error", "Initial deposit must be greater than zero");
+            return;
+        }
         
         if (!termsCheckbox.isSelected()) {
             showAlert("Error", "Please agree to the Terms and Conditions");
             return;
         }
-        
-        // Register user (demo - would save to database)
-        showAlert("Success", "Account created successfully! Please login.");
-        NavigationHelper.navigateTo(NavigationHelper.getStage(signUpButton), "LoginView.fxml");
+
+        String username = usernameField.getText().trim();
+
+        try {
+            // Ensure username is still unique before saving
+            if (customerDAO.findByUsername(username) != null) {
+                showAlert("Error", "Username already exists. Please choose a different one.");
+                return;
+            }
+
+            // Create the customer record and persist it
+            IndividualCustomer customer = new IndividualCustomer(
+                generateCustomerId(),
+                firstNameField.getText().trim(),
+                lastNameField.getText().trim(),
+                nationalIdField.getText().trim(),
+                addressField.getText().trim(),
+                phoneField.getText().trim(),
+                emailField.getText().trim(),
+                username,
+                passwordField.getText()
+            );
+
+            bankService.createIndividualCustomer(customer);
+            try {
+                createInitialAccount(customer, accountTypeComboBox.getValue(), initialDeposit);
+            } catch (Exception accountError) {
+                // Roll back customer if account creation fails so rule is not violated
+                try {
+                    customerDAO.delete(customer.getCustomerID());
+                } catch (SQLException deleteError) {
+                    System.err.println("WARNING: Failed to roll back customer after account error: " + deleteError.getMessage());
+                }
+                showAlert("Error", accountError.getMessage());
+                return;
+            }
+
+            showAlert("Success", "Account created successfully! Please login.");
+            NavigationHelper.navigateTo(NavigationHelper.getStage(signUpButton), "LoginView.fxml");
+        } catch (SQLException e) {
+            showAlert("Error", "Could not save your account: " + e.getMessage());
+        }
     }
     
     @FXML
@@ -115,6 +199,36 @@ public class SignUpController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private String generateCustomerId() {
+        // Simple unique id for new customers
+        return "CUST-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    }
+
+    private String generateAccountNumber() {
+        // Account number uses ACC- prefix so it is easy to spot
+        return "ACC-" + UUID.randomUUID().toString().substring(0, 10).toUpperCase();
+    }
+
+    private void createInitialAccount(IndividualCustomer customer, String selectedAccountType, double initialDeposit) throws SQLException {
+        String accountNumber = generateAccountNumber();
+        String type = selectedAccountType != null ? selectedAccountType.toLowerCase() : "";
+
+        if (type.contains("savings")) {
+            SavingsAccount account = new SavingsAccount(accountNumber, customer);
+            bankService.openSavingsAccount(account);
+            bankService.deposit(account, initialDeposit);
+        } else if (type.contains("investment")) {
+            if (initialDeposit < 500.0) {
+                throw new IllegalArgumentException("Investment accounts require a minimum opening balance of BWP 500.");
+            }
+            InvestmentAccount account = new InvestmentAccount(accountNumber, customer);
+            bankService.openInvestmentAccount(account);
+            bankService.deposit(account, initialDeposit);
+        } else {
+            throw new IllegalArgumentException("Unsupported account type. Please pick Savings or Investment.");
+        }
     }
 }
 

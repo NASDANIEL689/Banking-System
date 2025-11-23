@@ -15,6 +15,7 @@ import bankapp.CompanyCustomer;
 import bankapp.SavingsAccount;
 import bankapp.InvestmentAccount;
 import bankapp.ChequeAccount;
+import java.util.UUID;
 
 public class AccountCreateController {
     @FXML public ChoiceBox<String> accountTypeChoice;
@@ -47,6 +48,7 @@ public class AccountCreateController {
         
         accountTypeChoice.getItems().addAll("Savings", "Investment", "Cheque");
         accountTypeChoice.setValue("Savings");
+        generateAndSetAccountNumber();
         
         // Show/hide fields based on account type
         accountTypeChoice.setOnAction(e -> updateFieldsVisibility());
@@ -180,6 +182,15 @@ public class AccountCreateController {
     private void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR, msg);
         a.showAndWait();
+    }
+
+    private void generateAndSetAccountNumber() {
+        accountNumberField.setEditable(false);
+        accountNumberField.setText(generateAccountNumber());
+    }
+
+    private String generateAccountNumber() {
+        return "ACC-" + UUID.randomUUID().toString().substring(0, 10).toUpperCase();
     }
 }
 

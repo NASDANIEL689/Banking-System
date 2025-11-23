@@ -4,8 +4,16 @@ public class InvestmentAccount extends Account implements Withdrawable {
     private static final double INTEREST_RATE = 0.05; // 5% monthly
     private static final double MINIMUM_OPENING_BALANCE = 500.0;
 
-    public InvestmentAccount(String accountNumber, Customer owner, double initialDeposit) {
+    public InvestmentAccount(String accountNumber, Customer owner) {
         super(accountNumber, owner);
+    }
+
+    public InvestmentAccount(String accountNumber, Customer owner, double initialDeposit) {
+        this(accountNumber, owner);
+        setOpeningDeposit(initialDeposit);
+    }
+
+    public void setOpeningDeposit(double initialDeposit) {
         if (initialDeposit >= MINIMUM_OPENING_BALANCE) {
             this.balance = initialDeposit;
             if (initialDeposit > 0) {

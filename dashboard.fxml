@@ -11,7 +11,10 @@
                 <Insets top="15" right="20" bottom="15" left="20" />
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label fx:id="welcomeLabel" text="Welcome, [username]" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                <VBox spacing="4" alignment="CENTER_LEFT">
+                    <Label fx:id="welcomeLabel" text="Welcome, [username]" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                    <Label fx:id="totalBalanceLabel" text="Total Balance: P0.00" style="-fx-font-size: 16px; -fx-text-fill: #1E3C72; -fx-font-weight: bold;" />
+                </VBox>
                 <Region HBox.hgrow="ALWAYS" />
                 <Button text="Logout" onAction="#onLogout" style="-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-font-weight: bold;" />
             </HBox>
@@ -39,6 +42,7 @@
             <padding>
                 <Insets top="15" right="20" bottom="15" left="20" />
             </padding>
+            <Button text="Transfer Between Accounts" onAction="#onTransferBetweenAccounts" style="-fx-background-color: #0d47a1; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-pref-width: 230;" />
             <Button text="Create New Account" onAction="#onCreateAccount" style="-fx-background-color: #1E3C72; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-pref-width: 200;" />
         </HBox>
     </bottom>
